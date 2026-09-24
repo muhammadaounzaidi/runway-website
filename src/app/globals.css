@@ -67,12 +67,12 @@ html {
   transition:
     background-color 0.5s var(--ease-out),
     border-color 0.5s var(--ease-out),
-    transform 0.5s var(--ease-out);
+    scale 0.5s var(--ease-out);
 }
 [data-lit] > .spine-node {
   background: #06b6d4;
   border-color: #06b6d4;
-  transform: translate(-50%, 0) scale(1.15);
+  scale: 1.15;
 }
 
 /* ---------- Direction B · Editorial / C · Minimal (docs palette: slate + cyan, light) ---------- */

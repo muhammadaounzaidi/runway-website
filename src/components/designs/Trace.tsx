@@ -76,6 +76,23 @@ function Spine({ children }: { children: ReactNode }) {
     if (!el) return;
     el.classList.add("spine-live");
     const nodes = Array.from(el.querySelectorAll<HTMLElement>("[data-node]"));
+
+    // Sit each node on the vertical centre of its section's first heading line.
+    // offsetTop ignores the reveal transform, so the node stays put while content settles.
+    const align = () => {
+      for (const n of nodes) {
+        const dot = n.querySelector<HTMLElement>(".spine-node");
+        const first = n.querySelector<HTMLElement>(".spine-content :is(h2, dt)");
+        if (!dot || !first) continue;
+        const cs = getComputedStyle(first);
+        const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.2;
+        let top = 0;
+        for (let e: HTMLElement | null = first; e && e !== n; e = e.offsetParent as HTMLElement | null) {
+          top += e.offsetTop;
+        }
+        dot.style.top = `${top + lh / 2}px`;
+      }
+    };
     const update = () => {
       const r = el.getBoundingClientRect();
       const reading = window.innerHeight * 0.62;
@@ -87,13 +104,19 @@ function Spine({ children }: { children: ReactNode }) {
         if (atEnd || n.getBoundingClientRect().top < reading) n.setAttribute("data-lit", "");
       }
     };
+    const onResize = () => {
+      align();
+      update();
+    };
     // Six rect reads per scroll event: cheap enough to run unthrottled.
+    align();
     update();
+    document.fonts?.ready.then(align);
     window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -111,7 +134,7 @@ function Node({ id, children, className = "" }: { id?: string; children: ReactNo
   return (
     <section id={id} data-node="" className={`relative py-24 lg:py-32 ${className}`}>
       <span
-        className="spine-x spine-node absolute z-20 top-[calc(6rem+0.55em)] size-[11px] -translate-x-1/2 rounded-full border-2 border-[#94a3b8] bg-[#f1f5f9] lg:top-[calc(8rem+0.55em)]"
+        className="spine-x spine-node absolute top-[7.5rem] z-20 size-[11px] -translate-x-[calc(50%-0.5px)] -translate-y-1/2 rounded-full border-2 border-[#94a3b8] bg-[#f1f5f9] lg:top-[9.5rem]"
         aria-hidden
       />
       <div className="spine-content mx-auto w-full max-w-[1160px] pl-12 pr-5 sm:pl-20 sm:pr-8">{children}</div>
