@@ -7,9 +7,9 @@ import Minimal from "@/components/designs/Minimal";
 import type { DirectionId } from "./directionIds";
 
 const directions = [
-  { id: "a", name: "Trace", note: "Light, monitor-trace spine · docs palette", Component: Trace },
-  { id: "b", name: "Editorial", note: "Light, serif, scroll-lit text · docs palette", Component: Editorial },
-  { id: "c", name: "Minimal", note: "Light, centered, stacking panels · docs palette", Component: Minimal },
+  { id: "a", name: "Editorial", note: "Serif, runway hero, structured sections · docs palette", Component: Editorial },
+  { id: "b", name: "Minimal", note: "Light, centered, stacking panels · docs palette", Component: Minimal },
+  { id: "c", name: "Trace", note: "Dark hero, monitor-trace spine · docs palette", Component: Trace },
 ] as const;
 
 
