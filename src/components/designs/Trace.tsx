@@ -396,7 +396,7 @@ export default function Trace() {
           </Node>
 
           {/* Section 3: The 4-stage lifecycle */}
-          <Node id="engine" className="bg-[#f8fafc]">
+          <Node id="engine" className="bg-[#e7ecf3]">
             <p className={label}>{operatingModel.label}</p>
             <h2 className={h2}>{operatingModel.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-2 xl:grid-cols-4`}>
@@ -440,7 +440,7 @@ export default function Trace() {
           </Node>
 
           {/* Section 5: Post-SAV clinical execution playbook ("Post-SAV Execution" in the nav) */}
-          <Node id="post-sav" className="bg-[#f8fafc]">
+          <Node id="post-sav" className="bg-[#e7ecf3]">
             <p className={label}>{playbook.label}</p>
             <h2 className={h2}>{playbook.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-2 xl:grid-cols-4`}>
@@ -505,7 +505,7 @@ export default function Trace() {
           </Node>
 
           {/* Leadership (client request): Executive Leadership & Scientific Advisory Board */}
-          <Node id="leadership" className="bg-[#f8fafc]">
+          <Node id="leadership" className="bg-[#e7ecf3]">
             <p className={label}>{leadership.label}</p>
             <h2 className={h2}>{leadership.heading}</h2>
             <div className={`${afterHead} grid gap-10 lg:grid-cols-2 lg:gap-12`}>
