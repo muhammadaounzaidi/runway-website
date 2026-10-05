@@ -50,6 +50,8 @@ const h2OnDark = `${h2Base} text-[#f8fafc]`;
 const lead = "mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-[#475569]";
 const leadOnDark = "mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-[#94a3b8]";
 // One spacing scale: heading → content, and between sub-blocks inside a section.
+// Keep hyphenated terms (e.g. "Proof-of-Concept", "Ring-Fence") from breaking at the hyphen.
+const nb = (t: string) => t.replace(/-/g, "\u2011");
 const afterHead = "mt-10 lg:mt-[clamp(1.75rem,4.5vh,3rem)]";
 
 // A monitor-style trace: flat baseline with four complexes, ending just short of the right edge.
@@ -398,22 +400,22 @@ export default function Trace() {
             <p className={label}>{operatingModel.label}</p>
             <h2 className={h2}>{operatingModel.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-2 xl:grid-cols-4`}>
+              {/* Each card spans four shared rows (subgrid), so labels, titles, copy and bullets align across cards */}
               {operatingModel.stages.map((st) => (
                 <div
                   key={st.stage}
                   id={st.id}
-                  className="flex flex-col rounded-xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6 transition-[border-color,box-shadow] duration-700 data-[highlight]:border-[#06b6d4] data-[highlight]:shadow-[0_0_0_3px_rgb(6_182_212/0.18)] lg:[@media(max-height:820px)]:p-5"
+                  className="row-span-4 grid grid-rows-subgrid gap-y-3 rounded-xl border border-[#e2e8f0] bg-white p-6 shadow-[0_1px_2px_rgb(15_23_42/0.04)] transition-[border-color,box-shadow] duration-700 data-[highlight]:border-[#06b6d4] data-[highlight]:shadow-[0_0_0_3px_rgb(6_182_212/0.18)] lg:[@media(max-height:820px)]:p-5"
                 >
                   <span className="font-data text-[12px] font-bold text-[#0e7490]">{st.stage}</span>
-                  <h3 className="mt-4 text-[16px] font-bold text-[#0f172a] lg:[@media(max-height:820px)]:mt-3">
-                    {st.title}
-                  </h3>
-                  <p className="mb-5 mt-4 text-[13px] leading-relaxed text-[#475569] lg:[@media(max-height:820px)]:mb-4 lg:[@media(max-height:820px)]:mt-3">
-                    {st.body}
-                  </p>
-                  <ul className="mt-auto grid gap-1.5 border-t border-[#e2e8f0] pt-3 font-data text-[12px] text-[#64748b]">
+                  <h3 className="text-balance text-[16px] font-bold leading-snug text-[#0f172a]">{nb(st.title)}</h3>
+                  <p className="text-[13px] leading-relaxed text-[#475569]">{st.body}</p>
+                  <ul className="grid content-start gap-2 border-t border-[#e2e8f0] pt-4 text-[13px] text-[#334155]">
                     {st.points.map((pt) => (
-                      <li key={pt}>• {pt}</li>
+                      <li key={pt} className="flex gap-2.5">
+                        <span className="mt-[7px] size-1.5 shrink-0 rounded-full bg-[#06b6d4]" aria-hidden />
+                        {nb(pt)}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -445,11 +447,11 @@ export default function Trace() {
               {playbook.milestones.map((m) => (
                 <div
                   key={m.tag}
-                  className="rounded-xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6"
+                  className="row-span-3 grid grid-rows-subgrid gap-y-3 rounded-xl border border-[#e2e8f0] bg-white p-6 shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
                 >
-                  <span className="font-data text-[12px] text-[#0e7490]">{m.tag}</span>
-                  <h4 className="mt-3 text-[14px] font-bold text-[#0f172a]">{m.title}</h4>
-                  <p className="mt-3 text-[13px] leading-relaxed text-[#475569]">{m.body}</p>
+                  <span className="font-data text-[12px] font-bold text-[#0e7490]">{m.tag}</span>
+                  <h4 className="text-balance text-[15px] font-bold leading-snug text-[#0f172a]">{nb(m.title)}</h4>
+                  <p className="text-[13px] leading-relaxed text-[#475569]">{m.body}</p>
                 </div>
               ))}
             </div>
