@@ -150,6 +150,40 @@ body {
   }
 }
 
+/* Short phones (e.g. iPhone SE): keep each hero screen within one viewport */
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero-copy {
+    padding-block: 0.25rem;
+  }
+  .hero-copy h1 {
+    font-size: 1.85rem;
+  }
+  .hero-copy h1 + p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .hero-copy a {
+    padding-block: 0.65rem;
+  }
+  .hero-card > div {
+    padding: 0.875rem;
+  }
+  .hero-card .wb-body {
+    gap: 0.6rem;
+    padding-block: 0.75rem 0;
+  }
+  .hero-card .wb-body > div {
+    padding: 0.75rem;
+  }
+  .hero-card .wb-body p {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .hero-card dl > div {
+    padding: 0.6rem 0.75rem;
+  }
+}
+
 /* ---------- Motion ---------- */
 @keyframes draw {
   from {

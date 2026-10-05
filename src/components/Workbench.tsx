@@ -4,7 +4,7 @@ import { workbench } from "@/content/runway";
 /** Hero visual card from "Website code_updated": regimen vs. biological failure preview. */
 export function Workbench() {
   return (
-    <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-5 shadow-[0_30px_70px_-30px_rgb(0_0_0/0.75)] sm:p-6">
+    <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-4 shadow-[0_30px_70px_-30px_rgb(0_0_0/0.75)] sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-[#1e293b] pb-4 font-data text-[12px]">
         <span className="text-[#94a3b8]">{workbench.title}</span>
         <span className="flex items-center gap-1.5 text-[#34d399]">

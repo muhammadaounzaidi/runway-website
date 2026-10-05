@@ -244,19 +244,19 @@ export default function Trace() {
         <section className="trace-paper relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden border-b border-[#1e293b]">
           <div className="hero-recede flex flex-1 flex-col">
             <div
-              className={`${wrap} grid flex-1 content-center gap-10 py-10 md:grid-cols-12 md:py-8 md:items-center md:gap-8 lg:gap-12 lg:py-8 lg:[@media(max-height:800px)]:py-4`}
+              className={`${wrap} grid flex-1 content-center gap-0 py-0 md:grid-cols-12 md:py-8 md:items-center md:gap-8 lg:gap-12 lg:py-8 lg:[@media(max-height:800px)]:py-4`}
             >
-              <div className="hero-copy md:col-span-6 lg:col-span-7">
+              <div className="hero-copy flex min-h-[calc(100svh-4rem)] flex-col justify-center py-[clamp(1rem,3svh,2rem)] md:col-span-6 md:block md:min-h-0 md:py-0 lg:col-span-7">
                 <div
-                  className="hero-in inline-flex items-center gap-2 rounded-full border border-[#155e75]/60 bg-[#083344]/50 px-3 py-1 font-data text-[12px] text-[#22d3ee]"
+                  className="hero-in hidden items-start gap-2 rounded-xl border border-[#155e75]/60 bg-[#083344]/50 px-3 py-1.5 font-data text-[12px] leading-snug text-[#22d3ee] sm:inline-flex sm:items-center sm:rounded-full sm:py-1"
                   style={{ "--d": "0ms" } as CSSProperties}
                 >
-                  <ShieldCheck className="size-3.5" />
+                  <ShieldCheck className="mt-px size-3.5 shrink-0 sm:mt-0" />
                   {hero.badge}
                 </div>
                 <h1
                   aria-label={`${hero.headlineLead} ${hero.headlineAccent}`}
-                  className="mt-6 text-balance text-[clamp(2.1rem,min(4.6vw,6.8vh),3.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white"
+                  className="mt-0 text-balance text-[clamp(2rem,min(9vw,5.2svh),2.6rem)] sm:mt-6 sm:text-[clamp(2.1rem,min(4.6vw,6.8vh),3.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white"
                 >
                   {[
                     ...leadWords.map((w) => ({ w, accent: false })),
@@ -275,13 +275,13 @@ export default function Trace() {
                   ))}
                 </h1>
                 <p
-                  className="hero-in mt-6 max-w-[60ch] text-[16px] leading-relaxed text-[#cbd5e1]"
+                  className="hero-in mt-[clamp(0.75rem,2.4svh,1.5rem)] max-w-[60ch] text-[15px] leading-[1.6] text-[#cbd5e1] sm:mt-6 sm:text-[16px] sm:leading-relaxed"
                   style={{ "--d": "650ms" } as CSSProperties}
                 >
                   {hero.sub}
                 </p>
                 <div
-                  className="hero-in mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4"
+                  className="hero-in mt-[clamp(1rem,3svh,2rem)] flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4"
                   style={{ "--d": "800ms" } as CSSProperties}
                 >
                   <a
@@ -299,19 +299,22 @@ export default function Trace() {
                   </a>
                 </div>
                 <dl
-                  className="hero-in mt-8 grid grid-cols-3 gap-6 border-t border-[#1e293b] pt-6 font-data text-[12px] text-[#94a3b8]"
+                  className="hero-in mt-[clamp(1rem,3svh,2rem)] grid grid-cols-1 divide-y divide-[#1e293b] border-t border-[#1e293b] font-data text-[12px] text-[#94a3b8] sm:mt-8 sm:grid-cols-3 sm:gap-6 sm:divide-y-0 sm:pt-6"
                   style={{ "--d": "950ms" } as CSSProperties}
                 >
                   {hero.credentials.map((c) => (
-                    <div key={c.title}>
-                      <dt className="block text-[14px] font-bold text-white">{c.title}</dt>
-                      <dd>{c.detail}</dd>
+                    <div
+                      key={c.title}
+                      className="flex items-baseline justify-between gap-4 py-[clamp(0.5rem,1.4svh,0.75rem)] sm:block sm:py-0"
+                    >
+                      <dt className="whitespace-nowrap text-[14px] font-bold text-white">{c.title}</dt>
+                      <dd className="text-right sm:text-left">{c.detail}</dd>
                     </div>
                   ))}
                 </dl>
               </div>
-              <div className="hero-par w-full max-w-[520px] md:col-span-6 md:max-w-none lg:col-span-5">
-                <div className="hero-card">
+              <div className="hero-par flex min-h-[calc(100svh-4rem)] w-full max-w-[520px] items-center py-6 md:col-span-6 md:block md:min-h-0 md:max-w-none md:py-0 lg:col-span-5">
+                <div className="hero-card w-full">
                   <Workbench />
                 </div>
               </div>
