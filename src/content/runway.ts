@@ -1,133 +1,174 @@
-// Copy sourced verbatim from docs/client-docs/"Website description".
+// Copy follows docs/client-docs/new-doc/"Engr Spec-Website_update_dev" (§4 architecture, §5 component
+// specifications). Where the spec defines no copy (contact form, footer), text comes from
+// "Website code_updated". Spec section references are noted inline.
 
 export const brand = {
   name: "Runway",
-  full: "Runway Clinical Intelligence",
-  legal: "Runway Clinical Intelligence, Inc.",
+  legal: "Runway Clinical Intelligence Inc.",
   mark: "RUNWAY // CI",
 };
 
+// One link per spec section (§4).
 export const nav = [
-  { href: "#platform", label: "Platform" },
-  { href: "#triage", label: "Triage Engine" },
-  { href: "#sec", label: "SEC Convergence" },
-  { href: "#who-we-serve", label: "Who We Serve" },
-  { href: "#about", label: "About Us" },
+  { href: "#thesis", label: "Macro Thesis" },
+  { href: "#technology", label: "Technology" },
+  { href: "#sav", label: "SAV Architecture" },
+  { href: "#security", label: "Security & Compliance" },
 ];
 
-export const primaryAction = { href: "#demo", label: "Request Platform Access" };
+export const primaryAction = { href: "#contact", label: "Submit Asset Dossier" };
 
+// §5 Section 1
 export const hero = {
-  headline: "Precision Clinical Intelligence for High-Stakes Drug Development.",
-  sub: "Runway correlates real-time clinical trial operational velocity with SEC CIK filings, surfacing predictive triage scores to de-risk development timelines, safeguard asset progression, and preserve runway capital.",
-  primaryCta: { href: "#demo", label: "Schedule an Executive Briefing" },
-  secondaryCta: { href: "#platform", label: "Explore Platform Architecture" },
-  trust: "Engineered by physician executives, clinical trial monitors, and biopharma data architects.",
+  headline: "Programmatic Triage for Distressed Clinical Therapeutics",
+  sub: "Runway combines automated pharmacokinetic reconstruction with institutional underwriting to identify salvageable biopharma assets and feed dedicated Single-Asset Vehicles.",
+  primaryCta: { href: "#technology", label: "Explore Platform Pipeline" },
+  secondaryCta: { href: "#contact", label: "Submit Asset Dossier" },
 };
 
-export const metrics = [
-  { figure: "100%", text: "Audit-trail traceability for operational milestone tracking" },
-  { figure: "24/7", text: "Continuous SEC CIK disclosure & registry monitoring" },
-  { figure: "Single-Score", text: "Asset-level risk triage indexing operational, regulatory, and financial friction" },
-];
-
-export const sections = {
-  metrics: "Key Metrics & Impact",
-  platform: "Platform Overview",
-  features: "Detailed Feature Breakdown",
-  audiences: "Who We Serve",
-  audienceColumns: ["Target Role", "The Challenge", "The Runway Solution"],
-};
-
-export const pillars = [
-  {
-    key: "velocity",
-    tag: "Operational Milestone & Registry Surveillance",
-    title: "Active Clinical Velocity Tracking",
-    body: "Continuous ingestion of global trial registries, protocol amendments, and operational timelines. Runway detects early indicators of site fatigue, enrollment friction, and protocol bottlenecking before study milestones deviate.",
-  },
-  {
-    key: "capital",
-    tag: "SEC CIK & Financial Runway Convergence",
-    title: "Capital Burn Aligned to Clinical Execution",
-    body: "Trial milestone timelines are directly cross-referenced against corporate SEC disclosures (10-K, 10-Q, 8-K). By evaluating operational burn against remaining cash runway, Runway highlights liquidity risks before critical data readouts.",
-  },
-  {
-    key: "triage",
-    tag: "Multi-Variable Asset Triage Scoring",
-    title: "Quantitative Risk Prioritization",
-    body: "Our proprietary triage engine consolidates protocol complexity, competitive recruitment benchmarks, and trial execution velocity into actionable scores. Leadership teams gain immediate clarity on which assets require intervention.",
-  },
-];
-
-export const triageEngine = {
-  title: "The Triage Engine",
-  items: [
-    { term: "Predictive Friction Detection", body: "Evaluates site-level recruitment pacing against historical disease-state cohorts." },
-    { term: "Protocol Vulnerability Index", body: "Identifies restrictive inclusion/exclusion criteria patterns that threaten recruitment timelines." },
-    { term: "Timeline Drift Modeling", body: "Dynamic forecasting of interim and primary completion dates based on live operational inputs." },
-  ],
-};
-
-export const disclosureBridge = {
-  title: "The Corporate Disclosure Bridge",
-  items: [
-    { term: "Automated CIK Mapping", body: "Direct linkage between clinical trial identifiers (NCT numbers) and corporate parent SEC filings." },
-    { term: "Runway-to-Readout Calculator", body: "Real-time visibility into whether cash reserves comfortably bridge Phase I–III trial completion windows." },
-    { term: "Material Event Alerts", body: "Rapid alerts when corporate filings signal pipeline reprioritization, restructuring, or strategic reallocations." },
-  ],
-};
-
-export const audiences = [
-  {
-    role: "Chief Medical Officers & Clinical Leads",
-    challenge: "Protocol deviations, silent site attrition, and unpredicted enrollment delays threatening BLA/NDA timelines.",
-    solution: "Early-warning operational flags, automated medical review metrics, and cross-study velocity benchmarking.",
-  },
-  {
-    role: "Biopharma C-Suite & Boards",
-    challenge: "Disconnect between trial operational burn rates and cash runway ahead of planned financing events.",
-    solution: "Direct alignment between trial completion milestones and balance sheet durability to guide strategic capital decisions.",
-  },
-  {
-    role: "Life Science Investors & Partners",
-    challenge: "Information asymmetry and lagging public registry disclosures during technical due diligence.",
-    solution: "Objective, quantitative triage scores assessing operational execution integrity and regulatory disclosure alignment.",
-  },
-];
-
-export const governance = {
-  heading: "Corporate Governance & Scientific Integrity",
-  title: "Institutional Rigor",
-  intro: "Runway is built around the strict governance requirements of modern biopharmaceutical research.",
-  items: [
-    {
-      key: "compliance",
-      title: "Regulatory Compliance Frameworks",
-      body: "Architected in accordance with 21 CFR Part 11 electronic records integrity and global GCP/ICH guidelines.",
+// §4 Section 1 "Interactive PK/PD Workbench Re-plot & Distress Index"; §5 State A / State B.
+// Curves and index values are illustrative.
+export const workbench = {
+  title: "SAB Workbench · PK/PD Re-plot",
+  states: {
+    regimen: {
+      tab: "REGIMEN_FAILURE",
+      label: "State A",
+      badge: "Salvageable via altered dosing interval (Q2W → QW)",
+      distressIndex: 0.78,
     },
-    {
-      key: "corporate",
-      title: "Corporate Structure",
-      body: "Delaware C-Corporation infrastructure governed by seasoned clinical development leaders, biostatistical experts, and scientific advisory board (SAB) members.",
+    biological: {
+      tab: "BIOLOGICAL_FAILURE",
+      label: "State B",
+      badge: "Target saturated with zero efficacy; triage verdict: Deprioritize",
+      distressIndex: 0.91,
     },
+  },
+};
+
+// §4 Section 2 + §5 Section 2
+export const thesis = {
+  heading: "The Macro Thesis & Industry Arbitrage",
+  subheading: "The Failure Disconnect: Regimen Under-Dosing vs. Biological Failure",
+  argument:
+    "Millions of dollars in capital are abandoned each year because clinical trials fail on operational, scheduling, or dosing parameters—not target biology.",
+  metrics: [
     {
-      key: "security",
-      title: "Secure Enterprise Infrastructure",
-      body: "Role-based access control, encrypted transmission, and isolated data pipelines designed for institutional workflows.",
+      figure: "~40%",
+      text: "Proportion of Phase 1/2 trial halts driven by regimen miscalculation or sponsor capital depletion rather than unviable biology.",
+    },
+    { figure: "14 Days", text: "Turnaround window from raw dossier ingestion to formal SAB algorithmic verdict." },
+    {
+      figure: "$0 Parent Liability",
+      text: "Complete quarantine of clinical trial operational liabilities within isolated project SPVs.",
     },
   ],
 };
 
-export const cta = {
-  headline: "Eliminate Blind Spots in Your Clinical Pipeline.",
-  sub: "See how Runway’s triage scoring and disclosure convergence protect your drug development assets. Book a personalized platform walk-through with our scientific and technical team.",
-  roles: ["Clinical Development", "Executive Leadership", "Investment & Advisory", "Other"],
-  submit: "Request Platform Demonstration",
-  success: "Thank you. A member of our scientific and technical team will be in touch to schedule your walk-through.",
+// §4 Section 3 + §5 Section 3 (4-step interactive feature sequence)
+export const technology = {
+  heading: "The Technology Pipeline",
+  intro: "A 4-step sequence detailing Runway’s computational edge.",
+  steps: [
+    {
+      key: "ingestion",
+      step: "Step 1",
+      title: "Automated Ingestion",
+      architecture: "SEC EDGAR & CSR Automated Table Extraction",
+      body: "Parsing Non-Compartmental Analysis (NCA) tables, mean concentration coordinates, and clinical endpoints from unstructured PDFs, CSRs, and SEC 8-K filings.",
+    },
+    {
+      key: "pkpd",
+      step: "Step 2",
+      title: "PK/PD Mathematical Engine",
+      architecture: "1-Compartment PK Reconstruction & Hill Equation Solver",
+      body: "Solving 1-compartment differential equations and applying the sigmoidal Hill equation to quantify target saturation.",
+    },
+    {
+      key: "audit",
+      step: "Step 3",
+      title: "Regulatory Audit Engine",
+      architecture: "21 CFR Part 11 Electronic Signature & Immutable Audit Logs",
+      body: "Generating 21 CFR Part 11 compliant audit dossiers, complete with RFC 6238 TOTP electronic signature verification.",
+    },
+    {
+      key: "classifier",
+      step: "Step 4",
+      title: "Mechanistic Classifier",
+      architecture: "Algorithmic Classification (Regimen Failure vs. Target Invalidation)",
+      body: "Categorizing assets into actionable tranches (REGIMEN_FAILURE, BIOLOGICAL_FAILURE, NARROW_WINDOW).",
+    },
+  ],
+};
+
+// §4 Section 4 + §5 Section 4
+export const sav = {
+  heading: "Single-Asset Vehicle (SAV) Architecture",
+  intro: "The commercialization loop, from the parent engine to isolated asset vehicles.",
+  pillars: [
+    "Hub-and-Spoke Corporate Separation (Parent vs. Asset SPVs)",
+    "Back-Loaded Milestone Earn-Out Framework",
+    "Syndicate Co-Investment & Out-Licensing Realization",
+  ],
+  parent: {
+    title: "The Parent Engine",
+    body: "Runway maintains the technology core, ingestion pipeline, and proprietary deal sourcing.",
+  },
+  entity: {
+    title: "The Project Entity (SAV)",
+    body: "Individual Delaware entities formed to acquire or in-license specific compounds, funded via milestone-gated syndicate tranches.",
+  },
+  riskTitle: "Back-Loaded Risk",
+  ladder: [
+    { stage: "Upfront option window", detail: "$50k–$150k" },
+    { stage: "Closing", detail: "$500k–$1.5M · 50% Cash / 50% SAV Equity" },
+    { stage: "Contingent clinical / regulatory milestones", detail: "Milestone-gated" },
+    { stage: "Out-licensing pass-through", detail: "10–20% seller share · 80–90% SAV investor equity return" },
+  ],
+};
+
+// §4 Section 5 + §5 Section 5
+export const security = {
+  heading: "Trust, Security & Compliance",
+  badges: [
+    { key: "cfr", title: "21 CFR Part 11", detail: "Electronic Records & Signatures" },
+    { key: "hipaa", title: "HIPAA / HITECH", detail: "Security Standards" },
+    { key: "soc2", title: "SOC 2 Type II", detail: "Alignment" },
+  ],
+  enclaveTitle: "Enclave Security",
+  enclave: [
+    { key: "vpc", title: "AWS 3-tier VPC enclave" },
+    { key: "sts", title: "Short-lived STS credential management" },
+    { key: "dataroom", title: "Encrypted data room isolation" },
+  ],
+  leadership: {
+    title: "Executive Leadership & Scientific Advisory Board",
+    // Profiles not yet supplied by Runway; do not invent names.
+    pending: "Leadership and Scientific Advisory Board profiles to be published.",
+  },
+};
+
+// Contact: not defined in the spec; target of "Submit Asset Dossier". Copy from "Website code_updated".
+export const contact = {
+  heading: "Partner with Runway Clinical Intelligence",
+  sub: "Whether evaluating co-investment into active Single-Asset Vehicles, exploring strategic advisory alignment, or submitting a shelved biopharma asset for triage, reach out directly to our executive team.",
+  fields: {
+    name: { label: "Full Name", placeholder: "e.g. Dr. Jane Smith" },
+    email: { label: "Professional Email", placeholder: "name@institution.com" },
+    org: { label: "Organization / Entity", placeholder: "Biopharma Company, Venture Studio, or Family Office" },
+    interest: "Strategic Interest",
+  },
+  interests: [
+    "Submit a Stalled / Distressed Asset for Triage",
+    "Co-Invest in an Active SAV Vehicle",
+    "Incubator / Venture Studio Strategic Partnership",
+    "Pharma Licensing & BD Acquisition",
+  ],
+  submit: "Initiate Strategic Discussion",
+  success: "Inquiry received. The Runway executive team will be in touch shortly.",
 };
 
 export const footer = {
-  links: ["Privacy Policy", "Terms of Service", "Data Governance & Security"],
-  copyright: "© 2026 Runway Clinical Intelligence. All rights reserved.",
+  company: "Runway Clinical Intelligence Inc. | Delaware C-Corporation",
+  copyright: "© 2026 All Rights Reserved",
 };

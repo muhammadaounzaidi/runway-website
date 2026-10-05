@@ -1,47 +1,60 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-serif: var(--font-spectral);
+  --font-sans: var(--font-inter);
   --font-data: var(--font-jetbrains);
 }
 
-body {
-  background: #ffffff;
-  color: #0b0d12;
+/* Design tokens from the Engineering Specification (§3). */
+:root {
+  --navy: #0b132b;
+  --slate: #0f172a;
+  --surface: #162032;
+  --line: #1e293b;
+  --ink: #f8fafc;
+  --ink-2: #e2e8f0;
+  --teal: #00ebdb;
+  --sky: #38bdf8;
+  --indigo: #818cf8;
+  --coral: #fb7185;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
   scroll-padding-top: 5rem;
+  color-scheme: dark;
 }
 
-/* ---------- Direction A · Trace (docs palette: slate + cyan, light) ---------- */
+body {
+  background: var(--navy);
+  color: var(--ink-2);
+}
+
 .dir-trace {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   font-family: var(--font-inter), system-ui, sans-serif;
   font-feature-settings: "cv11", "ss01";
-  color: #0f172a;
-  background: #f1f5f9;
-  scrollbar-color: #94a3b8 #f1f5f9;
+  color: var(--ink-2);
+  background: var(--navy);
+  scrollbar-color: #334155 var(--navy);
 }
 .dir-trace ::selection {
-  background: #06b6d4;
-  color: #020617;
+  background: var(--teal);
+  color: var(--navy);
 }
 .dir-trace :focus-visible {
-  outline: 2px solid #0891b2;
+  outline: 2px solid var(--teal);
   outline-offset: 3px;
 }
-/* Chart paper: faint grid, fading out toward the edges */
+
+/* Chart paper: faint grid behind the hero, fading toward the edges */
 .trace-paper::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgb(148 163 184 / 0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(148 163 184 / 0.09) 1px, transparent 1px);
+    linear-gradient(rgb(148 163 184 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(148 163 184 / 0.07) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: radial-gradient(ellipse 80% 70% at 50% 45%, #000 30%, transparent 100%);
 }
@@ -51,6 +64,7 @@ html {
 .trace-head {
   transform: translate(-50%, -50%);
 }
+
 /* Spine sits on the content column's left edge */
 .spine-x {
   left: max(1.25rem, calc((100% - 1160px) / 2 + 1.25rem));
@@ -70,127 +84,38 @@ html {
     scale 0.5s var(--ease-out);
 }
 [data-lit] > .spine-node {
-  background: #06b6d4;
-  border-color: #06b6d4;
+  background: var(--teal);
+  border-color: var(--teal);
   scale: 1.15;
 }
 
-/* ---------- Direction B · Editorial / C · Minimal (docs palette: slate + cyan, light) ---------- */
-.dir-editorial,
-.dir-minimal {
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  color: #0f172a;
-  background: #ffffff;
-  scrollbar-color: #94a3b8 #f1f5f9;
+/* Waterfall simulator range inputs */
+.sim-range {
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--line);
+  cursor: pointer;
 }
-.dir-editorial {
-  font-family: var(--font-hanken), system-ui, sans-serif;
+.sim-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 3px solid var(--navy);
+  box-shadow: 0 0 0 1px var(--teal);
 }
-.dir-minimal {
-  font-family: var(--font-onest), system-ui, sans-serif;
-}
-.dir-editorial ::selection,
-.dir-minimal ::selection {
-  background: #06b6d4;
-  color: #020617;
-}
-.dir-editorial :focus-visible,
-.dir-minimal :focus-visible {
-  outline: 2px solid #0891b2;
-  outline-offset: 3px;
+.sim-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--teal);
+  border: 3px solid var(--navy);
+  box-shadow: 0 0 0 1px var(--teal);
 }
 
 /* ---------- Motion ---------- */
-/* B hero: runway in CSS perspective */
-.runway-scene {
-  perspective: 360px;
-  perspective-origin: 50% 0%;
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 45%);
-  transform: scale(calc(1 + var(--hp, 0) * 0.35));
-  transform-origin: 50% 0%;
-}
-.runway-plane {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 1100px;
-  height: 320%;
-  transform: translateX(-50%) rotateX(72deg);
-  transform-origin: 50% 0%;
-}
-.runway-plane > span {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-.runway-edge {
-  width: 3px;
-  background: #cbd5e1;
-}
-.runway-lights {
-  width: 10px;
-  background: repeating-linear-gradient(to bottom, #94a3b8 0 10px, transparent 10px 90px);
-}
-.runway-center {
-  left: 50%;
-  width: 8px;
-  margin-left: -4px;
-  background: repeating-linear-gradient(to bottom, #06b6d4 0 70px, transparent 70px 160px);
-}
-.hero-copy {
-  transform: translateY(calc(var(--hp, 0) * -60px));
-  opacity: calc(1 - var(--hp, 0) * 1.2);
-}
-@keyframes runway-flow {
-  to {
-    background-position-y: 160px;
-  }
-}
-@keyframes runway-lights {
-  to {
-    background-position-y: 90px;
-  }
-}
-@keyframes runway-in {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) rotateX(84deg);
-  }
-}
-
-@keyframes line-rise {
-  from {
-    transform: translateY(105%);
-  }
-  to {
-    transform: none;
-  }
-}
-
-[data-reveal] {
-  transition:
-    opacity 0.9s var(--ease-out, ease-out),
-    transform 1.1s var(--ease-out, ease-out),
-    filter 0.9s var(--ease-out, ease-out);
-  transition-delay: var(--d, 0ms);
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(0.45em);
-    filter: blur(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
-}
-.rise-words > span {
-  display: inline-block;
-}
-
 @keyframes draw {
   from {
     stroke-dashoffset: 1;
@@ -209,29 +134,42 @@ html {
     transform: translate(-50%, -50%) scale(1);
   }
 }
-
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
 @keyframes recede {
   to {
     opacity: 0.1;
-    transform: scale(0.94) translateY(-6vh);
+    transform: scale(0.96) translateY(-4vh);
     filter: blur(4px);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @media (scripting: enabled) {
-    [data-reveal]:not([data-in]) {
-      opacity: 0;
-      transform: translateY(32px);
-      filter: blur(6px);
-    }
-  }
   .trace-path {
     stroke-dasharray: 1;
     animation: draw 2.6s cubic-bezier(0.65, 0, 0.35, 1) 0.25s both;
   }
   .trace-head {
-    animation: head-in 0.6s var(--ease-out, ease-out) 2.7s both;
+    animation: head-in 0.6s var(--ease-out) 2.7s both;
+  }
+  .wb-draw {
+    stroke-dasharray: 1;
+    animation: draw 1.6s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+  .wb-fade {
+    animation: fade-in 1s var(--ease-out) 0.6s both;
+  }
+  .tech-panel {
+    animation: panel-in 0.6s var(--ease-out) both;
   }
   .spine-live [data-node]:not([data-lit]) > .spine-content {
     opacity: 0.25;
@@ -240,36 +178,18 @@ html {
   }
   .spine-content {
     transition:
-      opacity 0.9s var(--ease-out, ease-out),
-      transform 1.1s var(--ease-out, ease-out),
-      filter 0.9s var(--ease-out, ease-out);
+      opacity 0.9s var(--ease-out),
+      transform 1.1s var(--ease-out),
+      filter 0.9s var(--ease-out);
   }
-  .runway-center {
-    animation: runway-flow 1.4s linear infinite;
-  }
-  .runway-lights {
-    animation: runway-lights 0.8s linear infinite;
-  }
-  .runway-scene > .runway-plane {
-    animation: runway-in 1.6s var(--ease-out, ease-out) 0.2s both;
-  }
-  .line-rise {
-    animation: line-rise 1.1s var(--ease-out, ease-out) both;
-    animation-delay: calc(var(--i) * 110ms + 100ms);
-  }
-  .fade-up {
-    animation: rise 1s var(--ease-out, ease-out) both;
-    animation-delay: var(--d, 0ms);
-  }
-  .rise-words > span {
-    animation: rise 1.1s var(--ease-out, ease-out) both;
-    animation-delay: calc(var(--i) * 70ms + 120ms);
-  }
+  /* Desktop only: on narrow screens the stacked hero is taller than the recede range. */
   @supports (animation-timeline: scroll()) {
-    .hero-recede {
-      animation: recede linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 90vh;
+    @media (min-width: 1024px) {
+      .hero-recede {
+        animation: recede linear both;
+        animation-timeline: scroll(root);
+        animation-range: 0 90vh;
+      }
     }
   }
 }

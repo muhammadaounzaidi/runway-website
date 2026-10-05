@@ -8,49 +8,43 @@ web
 
 ## Users
 
-Three audiences, weighted equally:
-
-- **Chief Medical Officers & clinical leads** — facing protocol deviations, silent site attrition, and enrollment delays that threaten BLA/NDA timelines.
-- **Biopharma C-suite & boards** — needing trial operational burn aligned with cash runway ahead of financing events.
-- **Life-science investors, funds, lenders & partners** — doing technical due diligence against lagging registry and quarterly disclosures.
+- **Life-science investors, family offices and syndicate co-investors** evaluating co-investment into active Single-Asset Vehicles.
+- **Biopharma sponsors and sellers** with stalled, shelved or distressed Phase 1/2 assets to submit for triage.
+- **Incubators / venture studios** seeking strategic partnership, and **pharma BD / licensing teams** looking for de-risked assets.
 
 ## Product Purpose
 
-Runway Clinical Intelligence correlates real-time clinical trial operational velocity with SEC CIK filings and surfaces predictive triage scores, so teams can de-risk development timelines, safeguard asset progression, and preserve runway capital. The website's job is to earn an executive briefing / platform demonstration request.
+Runway Clinical Intelligence identifies, evaluates and underwrites distressed biopharma assets and acquires them into captive Single-Asset Vehicles (SAVs). The public website positions Runway as an institutional clinical intelligence platform and earns strategic inquiries (co-investment, asset submission, partnership, licensing).
 
 ## Positioning
 
-The mechanism no neighbor can copy: trial identifiers (NCT numbers) are mapped directly to the sponsor's SEC filings (CIK), so trial milestone timelines are measured against the cash runway disclosed in 10-K/10-Q/8-K filings. Outputs are a single asset-level triage score and the Sponsor-Assessed Valuation (SAV) index.
+Real-time SEC/registry surveillance flags stalled assets; a 14-day SAB pharmacometric triage (PK/PD reconstruction, Hill-equation saturation) separates regimen failure from biological failure; salvageable assets are acquired into liability-isolated Delaware SAVs and taken through post-acquisition execution to out-licensing. The site must project quantitative computational authority and transaction credibility, not the look of a CRO or speculative biotech.
 
 ## Operating Context
 
-Evaluated by executives, clinical leaders, and investment committees during diligence and pipeline review. Vocabulary: NCT, CIK, 10-K/10-Q/8-K, BLA/NDA, rPOS, readout, runway, site activation, screen failure, Phase I–III.
+Read during investment diligence, BD review and asset-sale conversations. Vocabulary: SAV, SPV, SAB, PK/PD, NCA, CSR, Ctrough, EC85, Q2W/QW, REGIMEN_FAILURE / BIOLOGICAL_FAILURE / NARROW_WINDOW, 10-K/10-Q/8-K, CIK, 21 CFR Part 11, GCP/ICH, CMC, FTO, IND.
 
 ## Capabilities and Constraints
 
-- Active clinical velocity tracking (registries, protocol amendments, timelines).
-- SEC CIK disclosure convergence; runway-to-readout calculator; material event alerts.
-- Triage engine: predictive friction detection, protocol vulnerability index, timeline drift modeling.
-- Sponsor-Assessed Valuation (SAV).
-- Lead capture form: full name, professional email, organization, primary role (Clinical Development / Executive Leadership / Investment & Advisory / Other). No backend yet.
-- Stack: Next.js (App Router), Tailwind CSS v4.
+- Sections (from "Website code_updated"): hero with SAB Workbench, macro thesis, 4-stage operating model, SAV waterfall simulator, post-SAV execution playbook, governance, contact.
+- Contact form: Full Name, Professional Email, Organization / Entity, Strategic Interest (4 options). No backend yet.
+- Marketing site is a separate repo (`runway-website`), decoupled from the core platform; deploys to Vercel/Cloudflare.
+- Stack: Next.js (App Router), Tailwind CSS v4, TypeScript, Lucide icons.
 
 ## Brand Commitments
 
-- Name: Runway Clinical Intelligence; mark "RUNWAY // CI"; legal entity Runway Clinical Intelligence, Inc. (Delaware C-Corporation).
-- Colour scheme is fixed by the client docs: Tailwind slate neutrals with cyan (cyan-400/500, cyan-950) and teal-300 accents; emerald for success. Primary buttons are cyan-500 with slate-950 text.
-- All directions read predominantly light, minimal and modern, with dark slate only as accents (client feedback: the original all-dark page was too dark). The original dark page is being redesigned, not preserved.
-- Motion reference: apple.com-style scroll and entrance motion.
-- Site content is limited to the sections in "Website description"; no extra sections (SAV is not on the site).
-- Copy source of truth: docs/client-docs "Website description".
+- Name: Runway Clinical Intelligence Inc.; mark "RUNWAY // CI"; Delaware C-Corporation.
+- Client chose the **Trace** design direction (Sep 24, 2026).
+- Palette and type are fixed by the Engineering Specification §3: deep navy / midnight slate backgrounds (#0B132B, #0F172A), slate surfaces (#1E293B, #162032), clinical off-white text (#F8FAFC, #E2E8F0), electric teal / biotech cyan accents (#00EBDB, #38BDF8), indigo / coral callouts (#818CF8, #FB7185); Inter for headings and body, JetBrains Mono for metrics, formulas and code.
+- Copy sources: docs/client-docs/new-doc "Website code_updated" (primary) and "Engr Spec-Website_update_dev".
 
 ## Evidence on Hand
 
-No real customers, logos, testimonials, product screenshots, benchmarks, or team names. All product data shown on the site must be labelled illustrative. Governance claims limited to those in the docs (21 CFR Part 11 alignment, GCP/ICH, Delaware C-Corp, RBAC/encryption/isolated pipelines).
+Client-supplied figures only: ~40% of Phase 1/2 halts from regimen miscalculation or capital depletion, 14-day dossier-to-verdict turnaround, $0 parent liability, SAV deal terms (90-day option, 50% cash / 50% SAV equity, 10–25% seller pass-through, 80–90% syndicate payout). No customer names, logos, leadership or SAB member names yet; do not fabricate them. Workbench curves and simulator outputs are illustrative and labelled as such.
 
 ## Product Principles
 
-1. Show the mechanism (trial timeline vs. disclosed cash runway), don't just claim it.
-2. Institutional restraint: precise, evidence-first language; no hype.
-3. Every audience finds their problem and Runway's answer within seconds.
+1. Show the mechanism (regimen vs. biology, capital waterfall), don't just claim it.
+2. Quantitative, institutional tone; no hype.
+3. Every audience (investor, seller, partner, licensor) finds its path to inquiry.
 4. Never fabricate proof; label demonstrations as illustrative.
