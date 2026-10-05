@@ -71,7 +71,7 @@ body {
   appearance: none;
   height: 4px;
   border-radius: 999px;
-  background: var(--line);
+  background: #e2e8f0;
   cursor: pointer;
 }
 .sim-range::-webkit-slider-thumb {
@@ -80,7 +80,7 @@ body {
   height: 18px;
   border-radius: 50%;
   background: var(--teal);
-  border: 3px solid var(--navy);
+  border: 3px solid #ffffff;
   box-shadow: 0 0 0 1px var(--teal);
 }
 .sim-range::-moz-range-thumb {
@@ -88,7 +88,7 @@ body {
   height: 18px;
   border-radius: 50%;
   background: var(--teal);
-  border: 3px solid var(--navy);
+  border: 3px solid #ffffff;
   box-shadow: 0 0 0 1px var(--teal);
 }
 

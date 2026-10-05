@@ -1,12 +1,27 @@
 "use client";
 
-import { Fragment, useEffect, useRef, type CSSProperties, type ReactNode } from "react";
-import { Activity, ArrowRight, Boxes, Lock, Scale, ShieldCheck, TrendingDown } from "lucide-react";
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import {
+  Activity,
+  ArrowRight,
+  BadgeCheck,
+  Boxes,
+  Lock,
+  LockKeyhole,
+  Menu,
+  Scale,
+  ShieldCheck,
+  TrendingDown,
+  UserRound,
+  X,
+} from "lucide-react";
+import {
+  complianceBadges,
   contact,
   footer,
   governance,
   hero,
+  leadership,
   nav,
   operatingModel,
   playbook,
@@ -19,17 +34,21 @@ import { WaterfallSimulator } from "@/components/WaterfallSimulator";
 import { Workbench } from "@/components/Workbench";
 
 const thesisIcons = {
-  capital: { Icon: TrendingDown, color: "#fbbf24" },
-  regimen: { Icon: Activity, color: "#22d3ee" },
-  arbitrage: { Icon: Scale, color: "#34d399" },
+  capital: { Icon: TrendingDown, color: "#d97706" },
+  regimen: { Icon: Activity, color: "#0891b2" },
+  arbitrage: { Icon: Scale, color: "#059669" },
 } as const;
 const govIcons = { cfr: ShieldCheck, ringfence: Boxes, gcp: Lock, ip: Scale } as const;
+const badgeIcons = { cfr: ShieldCheck, hipaa: LockKeyhole, soc2: BadgeCheck } as const;
 
 const wrap = "mx-auto w-full max-w-[1160px] px-5 sm:px-8";
-const label = "font-data text-[12px] font-semibold uppercase tracking-[0.18em] text-[#22d3ee]";
-const h2 =
-  "mt-3 max-w-[26ch] text-balance text-[clamp(1.75rem,min(3.4vw,5.2vh),2.75rem)] lg:max-w-none font-semibold leading-[1.1] tracking-[-0.03em] text-[#f8fafc]";
-const lead = "mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-[#94a3b8]";
+const label = "font-data text-[12px] font-semibold uppercase tracking-[0.18em] text-[#0e7490]";
+const h2Base =
+  "mt-3 max-w-[26ch] text-balance text-[clamp(1.75rem,min(3.4vw,5.2vh),2.75rem)] lg:max-w-none font-semibold leading-[1.1] tracking-[-0.03em] ";
+const h2 = `${h2Base} text-[#0f172a]`;
+const h2OnDark = `${h2Base} text-[#f8fafc]`;
+const lead = "mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-[#475569]";
+const leadOnDark = "mt-4 max-w-[62ch] text-[16px] leading-[1.65] text-[#94a3b8]";
 // One spacing scale: heading → content, and between sub-blocks inside a section.
 const afterHead = "mt-10 lg:mt-[clamp(1.75rem,4.5vh,3rem)]";
 
@@ -176,32 +195,94 @@ function Node({ id, children, className = "" }: { id?: string; children: ReactNo
 }
 
 export default function Trace() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  // Close the menu with Escape, or when the window grows to the full nav.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    const wide = matchMedia("(min-width: 1280px)");
+    const onWide = () => wide.matches && setMenuOpen(false);
+    window.addEventListener("keydown", onKey);
+    wide.addEventListener("change", onWide);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      wide.removeEventListener("change", onWide);
+    };
+  }, [menuOpen]);
   const accentWords = hero.headlineAccent.split(" ");
   const leadWords = hero.headlineLead.split(" ");
   return (
     <div className="dir-trace min-h-screen">
-      <header className="sticky top-0 z-40 border-b border-[#1e293b] bg-[#020617]/80 backdrop-blur-md">
-        <div className={`${wrap} flex h-16 items-center justify-between gap-6`}>
+      <header className="sticky top-0 z-40 border-b border-[#1e293b] bg-[#020617]/85 backdrop-blur-md">
+        <div className={`${wrap} flex h-16 items-center gap-6`}>
           <a href="#top" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
             <Activity className="size-6 text-[#22d3ee]" />
             <span className="font-data text-[17px] font-bold tracking-tight text-white">
               RUNWAY <span className="text-[#22d3ee]">{"//"}</span> CI
             </span>
           </a>
-          <nav className="hidden items-center gap-8 font-data text-[12px] uppercase tracking-wider text-[#cbd5e1] lg:flex">
+          {/* One line, evenly spaced, centred between logo and action (wide screens) */}
+          <nav
+            aria-label="Primary"
+            className="hidden flex-1 items-center justify-center gap-7 whitespace-nowrap font-data text-[12px] uppercase tracking-wide text-[#cbd5e1] xl:flex"
+          >
             {nav.map((n) => (
-              <a key={n.href} href={n.href} className="transition-colors hover:text-[#22d3ee]">
+              <a key={n.href} href={n.href} className="py-2 transition-colors hover:text-[#22d3ee]">
                 {n.label}
               </a>
             ))}
           </nav>
-          <a
-            href={primaryAction.href}
-            className="hidden whitespace-nowrap rounded-lg bg-[#06b6d4] px-4 py-2 text-[12px] font-bold uppercase tracking-wider text-[#020617] transition-colors hover:bg-[#22d3ee] sm:inline-block"
-          >
-            {primaryAction.label}
-          </a>
+          <div className="ml-auto flex items-center gap-3 xl:ml-0">
+            <a
+              href={primaryAction.href}
+              className="hidden whitespace-nowrap rounded-lg bg-[#06b6d4] px-4 py-2 text-[12px] font-bold uppercase tracking-wider text-[#020617] transition-colors hover:bg-[#22d3ee] sm:inline-block"
+            >
+              {primaryAction.label}
+            </a>
+            <button
+              type="button"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              aria-controls="site-menu"
+              onClick={() => setMenuOpen((o) => !o)}
+              className="flex size-10 items-center justify-center rounded-lg border border-[#1e293b] text-[#e2e8f0] transition-colors hover:border-[#334155] xl:hidden"
+            >
+              {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Menu for laptops, tablets and phones */}
+        {menuOpen && (
+          <nav
+            id="site-menu"
+            aria-label="Primary"
+            className="absolute inset-x-0 top-full max-h-[calc(100svh-4rem)] overflow-y-auto border-y border-[#1e293b] bg-[#020617]/95 shadow-[0_24px_48px_-24px_rgb(0_0_0/0.8)] backdrop-blur-md xl:hidden"
+          >
+            <ul className={`${wrap} grid gap-1 py-4 font-data text-[13px] uppercase tracking-wide`}>
+              {nav.map((n) => (
+                <li key={n.href}>
+                  <a
+                    href={n.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block rounded-lg px-3 py-3 text-[#cbd5e1] transition-colors hover:bg-[#0f172a] hover:text-[#22d3ee]"
+                  >
+                    {n.label}
+                  </a>
+                </li>
+              ))}
+              <li className="mt-2 sm:hidden">
+                <a
+                  href={primaryAction.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block rounded-lg bg-[#06b6d4] px-3 py-3 text-center font-bold text-[#020617]"
+                >
+                  {primaryAction.label}
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
       </header>
 
       <main id="top">
@@ -292,17 +373,20 @@ export default function Trace() {
 
         <Spine>
           {/* Section 2: The macro problem & value arbitrage */}
-          <Node className="bg-[#020617]">
+          <Node className="bg-[#f1f5f9]">
             <p className={label}>{thesis.label}</p>
             <h2 className={h2}>{thesis.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-3 md:gap-8`}>
               {thesis.items.map((t) => {
                 const { Icon, color } = thesisIcons[t.key as keyof typeof thesisIcons];
                 return (
-                  <article key={t.key} className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-8">
+                  <article
+                    key={t.key}
+                    className="rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-8"
+                  >
                     <Icon className="size-8" style={{ color }} />
-                    <h3 className="mt-4 text-[18px] font-bold text-white">{t.title}</h3>
-                    <p className="mt-4 text-[14px] leading-relaxed text-[#cbd5e1]">{t.body}</p>
+                    <h3 className="mt-4 text-[18px] font-bold text-[#0f172a]">{t.title}</h3>
+                    <p className="mt-4 text-[14px] leading-relaxed text-[#475569]">{t.body}</p>
                   </article>
                 );
               })}
@@ -310,7 +394,7 @@ export default function Trace() {
           </Node>
 
           {/* Section 3: The 4-stage lifecycle */}
-          <Node id="engine" className="border-t border-[#1e293b]">
+          <Node id="engine" className="bg-[#f8fafc]">
             <p className={label}>{operatingModel.label}</p>
             <h2 className={h2}>{operatingModel.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-2 xl:grid-cols-4`}>
@@ -318,16 +402,16 @@ export default function Trace() {
                 <div
                   key={st.stage}
                   id={st.id}
-                  className="flex flex-col rounded-xl border border-[#1e293b] bg-[#0f172a] p-6 transition-[border-color,box-shadow] duration-700 data-[highlight]:border-[#22d3ee]/70 data-[highlight]:shadow-[0_0_0_1px_rgb(34_211_238/0.35)] lg:[@media(max-height:820px)]:p-5"
+                  className="flex flex-col rounded-xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6 transition-[border-color,box-shadow] duration-700 data-[highlight]:border-[#06b6d4] data-[highlight]:shadow-[0_0_0_3px_rgb(6_182_212/0.18)] lg:[@media(max-height:820px)]:p-5"
                 >
-                  <span className="font-data text-[12px] font-bold text-[#22d3ee]">{st.stage}</span>
-                  <h3 className="mt-4 text-[16px] font-bold text-white lg:[@media(max-height:820px)]:mt-3">
+                  <span className="font-data text-[12px] font-bold text-[#0e7490]">{st.stage}</span>
+                  <h3 className="mt-4 text-[16px] font-bold text-[#0f172a] lg:[@media(max-height:820px)]:mt-3">
                     {st.title}
                   </h3>
-                  <p className="mb-5 mt-4 text-[13px] leading-relaxed text-[#cbd5e1] lg:[@media(max-height:820px)]:mb-4 lg:[@media(max-height:820px)]:mt-3">
+                  <p className="mb-5 mt-4 text-[13px] leading-relaxed text-[#475569] lg:[@media(max-height:820px)]:mb-4 lg:[@media(max-height:820px)]:mt-3">
                     {st.body}
                   </p>
-                  <ul className="mt-auto grid gap-1.5 border-t border-[#1e293b] pt-3 font-data text-[12px] text-[#94a3b8]">
+                  <ul className="mt-auto grid gap-1.5 border-t border-[#e2e8f0] pt-3 font-data text-[12px] text-[#64748b]">
                     {st.points.map((pt) => (
                       <li key={pt}>• {pt}</li>
                     ))}
@@ -338,13 +422,13 @@ export default function Trace() {
           </Node>
 
           {/* Section 4: Interactive SAV waterfall & capital model ("The SAV Model" in the nav) */}
-          <Node id="sav-model" className="border-t border-[#1e293b] bg-[#020617]">
+          <Node id="sav-model" className="bg-[#f1f5f9]">
             <div className="grid gap-4 lg:grid-cols-12 lg:items-end lg:gap-10">
               <div className="lg:col-span-7">
                 <p className={label}>{simulator.label}</p>
                 <h2 className={h2}>{simulator.heading}</h2>
               </div>
-              <p data-reveal="" className="max-w-[62ch] text-[16px] leading-[1.65] text-[#94a3b8] lg:col-span-5">
+              <p data-reveal="" className="max-w-[62ch] text-[16px] leading-[1.65] text-[#64748b] lg:col-span-5">
                 {simulator.intro}
               </p>
             </div>
@@ -354,22 +438,25 @@ export default function Trace() {
           </Node>
 
           {/* Section 5: Post-SAV clinical execution playbook ("Post-SAV Execution" in the nav) */}
-          <Node id="post-sav" className="border-t border-[#1e293b]">
+          <Node id="post-sav" className="bg-[#f8fafc]">
             <p className={label}>{playbook.label}</p>
             <h2 className={h2}>{playbook.heading}</h2>
             <div data-reveal="stagger" className={`${afterHead} grid gap-6 md:grid-cols-2 xl:grid-cols-4`}>
               {playbook.milestones.map((m) => (
-                <div key={m.tag} className="rounded-xl border border-[#1e293b] bg-[#0f172a] p-6">
-                  <span className="font-data text-[12px] text-[#22d3ee]">{m.tag}</span>
-                  <h4 className="mt-3 text-[14px] font-bold text-white">{m.title}</h4>
-                  <p className="mt-3 text-[13px] leading-relaxed text-[#cbd5e1]">{m.body}</p>
+                <div
+                  key={m.tag}
+                  className="rounded-xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6"
+                >
+                  <span className="font-data text-[12px] text-[#0e7490]">{m.tag}</span>
+                  <h4 className="mt-3 text-[14px] font-bold text-[#0f172a]">{m.title}</h4>
+                  <p className="mt-3 text-[13px] leading-relaxed text-[#475569]">{m.body}</p>
                 </div>
               ))}
             </div>
           </Node>
 
           {/* Section 6: Institutional governance & compliance */}
-          <Node id="governance" className="border-t border-[#1e293b]">
+          <Node id="governance" className="bg-[#f1f5f9]">
             <div className="grid items-center gap-12 md:grid-cols-2">
               <div>
                 <p className={label}>{governance.label}</p>
@@ -382,14 +469,85 @@ export default function Trace() {
                 {governance.items.map((g) => {
                   const Icon = govIcons[g.key as keyof typeof govIcons];
                   return (
-                    <div key={g.key} className="rounded-xl border border-[#1e293b] bg-[#0f172a] p-4">
-                      <Icon className="mb-2 size-6 text-[#22d3ee]" />
-                      <h4 className="text-[14px] font-bold text-white">{g.title}</h4>
-                      <p className="mt-1 text-[12px] text-[#94a3b8]">{g.body}</p>
+                    <div
+                      key={g.key}
+                      className="rounded-xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-4"
+                    >
+                      <Icon className="mb-2 size-6 text-[#0e7490]" />
+                      <h4 className="text-[14px] font-bold text-[#0f172a]">{g.title}</h4>
+                      <p className="mt-1 text-[12px] text-[#64748b]">{g.body}</p>
                     </div>
                   );
                 })}
               </div>
+            </div>
+            <ul data-reveal="stagger" className={`${afterHead} grid gap-4 md:grid-cols-3`}>
+              {complianceBadges.map((b) => {
+                const Icon = badgeIcons[b.key as keyof typeof badgeIcons];
+                return (
+                  <li
+                    key={b.key}
+                    className="flex items-center gap-4 rounded-2xl border border-[#06b6d4]/35 bg-white p-5 shadow-[0_1px_2px_rgb(15_23_42/0.04)]"
+                  >
+                    <span className="flex size-12 shrink-0 items-center justify-center rounded-full border border-[#06b6d4]/40 bg-[#ecfeff] text-[#0e7490]">
+                      <Icon className="size-6" strokeWidth={1.6} />
+                    </span>
+                    <div>
+                      <p className="text-[16px] font-bold text-[#0f172a]">{b.title}</p>
+                      <p className="mt-0.5 text-[13px] text-[#64748b]">{b.detail}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Node>
+
+          {/* Leadership (client request): Executive Leadership & Scientific Advisory Board */}
+          <Node id="leadership" className="bg-[#f8fafc]">
+            <p className={label}>{leadership.label}</p>
+            <h2 className={h2}>{leadership.heading}</h2>
+            <div className={`${afterHead} grid gap-10 lg:grid-cols-2 lg:gap-12`}>
+              {leadership.groups.map((g) => (
+                <div key={g.key}>
+                  <h3 className="font-data text-[13px] font-semibold uppercase tracking-wider text-[#334155]">
+                    {g.title}
+                  </h3>
+                  <ul
+                    data-reveal="stagger"
+                    className="mt-5 grid gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-1 xl:grid-cols-3"
+                  >
+                    {g.people.map((person, i) =>
+                      person.name ? (
+                        <li
+                          key={i}
+                          className="flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-4 shadow-[0_1px_2px_rgb(15_23_42/0.04)] sm:block sm:p-5"
+                        >
+                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#0f172a] font-data text-[14px] font-bold text-[#22d3ee]">
+                            {person.initials}
+                          </span>
+                          <div>
+                            <p className="text-[15px] font-bold leading-snug text-[#0f172a] sm:mt-4">{person.name}</p>
+                            <p className="mt-1 text-[13px] text-[#0e7490]">{person.role}</p>
+                          </div>
+                        </li>
+                      ) : (
+                        <li
+                          key={i}
+                          className="flex items-center gap-4 rounded-xl border border-dashed border-[#cbd5e1] bg-white/60 p-4 sm:block sm:p-5"
+                        >
+                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#e2e8f0] text-[#94a3b8]">
+                            <UserRound className="size-6" strokeWidth={1.6} />
+                          </span>
+                          <div>
+                            <p className="text-[15px] font-semibold text-[#64748b] sm:mt-4">{person.role}</p>
+                            <p className="mt-1 text-[13px] text-[#94a3b8]">{leadership.pending}</p>
+                          </div>
+                        </li>
+                      ),
+                    )}
+                  </ul>
+                </div>
+              ))}
             </div>
           </Node>
 
@@ -397,8 +555,8 @@ export default function Trace() {
           <Node id="contact" className="border-t border-[#1e293b] bg-[#020617]">
             <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
               <div className="lg:col-span-5">
-                <h2 className={h2}>{contact.heading}</h2>
-                <p data-reveal="" className={lead}>
+                <h2 className={h2OnDark}>{contact.heading}</h2>
+                <p data-reveal="" className={leadOnDark}>
                   {contact.sub}
                 </p>
               </div>

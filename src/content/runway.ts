@@ -12,6 +12,7 @@ export const nav = [
   { href: "#sav-model", label: "The SAV Model" },
   { href: "#post-sav", label: "Post-SAV Execution" },
   { href: "#governance", label: "Governance" },
+  { href: "#leadership", label: "Leadership" },
 ];
 
 export const primaryAction = { href: "#contact", label: "Inquire on Pipeline" };
@@ -208,6 +209,41 @@ export const governance = {
       body: "Standardized contractual protection against third-party royalty claims.",
     },
   ],
+};
+
+// Compliance badges (client request, Oct 2026; wording from the Engineering Specification §5.5)
+export const complianceBadges = [
+  { key: "cfr", title: "21 CFR Part 11", detail: "Electronic Records & Signatures" },
+  { key: "hipaa", title: "HIPAA / HITECH", detail: "Security Standards" },
+  { key: "soc2", title: "SOC 2 Type II", detail: "Alignment" },
+];
+
+// Leadership section (client request, Oct 2026; heading from the Engineering Specification §4).
+// Only the founder's details are known (from her email signature); other seats await client profiles.
+export const leadership = {
+  label: "Leadership",
+  heading: "Executive Leadership & Scientific Advisory Board",
+  groups: [
+    {
+      key: "exec",
+      title: "Executive Leadership",
+      people: [
+        { name: "Oshevire (Oshe) Uvwo, MD, MPH", role: "Founder & Chief Development Officer", initials: "OU" },
+        { name: null, role: "Executive profile", initials: null },
+        { name: null, role: "Executive profile", initials: null },
+      ],
+    },
+    {
+      key: "sab",
+      title: "Scientific Advisory Board",
+      people: [
+        { name: null, role: "Scientific advisor", initials: null },
+        { name: null, role: "Scientific advisor", initials: null },
+        { name: null, role: "Scientific advisor", initials: null },
+      ],
+    },
+  ],
+  pending: "Profile to be provided",
 };
 
 // Section 7: Conversion & contact form

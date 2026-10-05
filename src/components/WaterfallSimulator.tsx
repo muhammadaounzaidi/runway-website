@@ -8,7 +8,7 @@ type Key = keyof typeof simulator.controls;
 
 function Bar({ value, color }: { value: number; color: string }) {
   return (
-    <div className="h-2 overflow-hidden rounded-full bg-[#1e293b]">
+    <div className="h-2 overflow-hidden rounded-full bg-[#e2e8f0]">
       <div
         className="h-full origin-left rounded-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
         style={{ transform: `scaleX(${value / 100})`, background: color }}
@@ -35,9 +35,9 @@ export function WaterfallSimulator() {
 
   return (
     <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
-      <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-6 lg:[@media(max-height:860px)]:p-5">
-        <h3 className="flex items-center gap-2 font-data text-[13px] font-semibold uppercase tracking-wider text-[#f8fafc]">
-          <Sliders className="size-4 text-[#22d3ee]" /> {simulator.parametersTitle}
+      <div className="rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6 lg:[@media(max-height:860px)]:p-5">
+        <h3 className="flex items-center gap-2 font-data text-[13px] font-semibold uppercase tracking-wider text-[#0f172a]">
+          <Sliders className="size-4 text-[#0e7490]" /> {simulator.parametersTitle}
         </h3>
         <div className="mt-6 grid gap-6 lg:[@media(max-height:860px)]:mt-4 lg:[@media(max-height:860px)]:gap-4 lg:[@media(max-height:700px)]:gap-2.5">
           {(Object.keys(simulator.controls) as Key[]).map((k) => {
@@ -45,10 +45,10 @@ export function WaterfallSimulator() {
             return (
               <div key={k} className="grid gap-2">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 text-[13px]">
-                  <label htmlFor={`${uid}-${k}`} className="text-[#cbd5e1]">
+                  <label htmlFor={`${uid}-${k}`} className="text-[#334155]">
                     {c.label}
                   </label>
-                  <output htmlFor={`${uid}-${k}`} className="font-data text-[#22d3ee] tabular-nums">
+                  <output htmlFor={`${uid}-${k}`} className="font-data text-[#0e7490] tabular-nums">
                     {readout[k]}
                   </output>
                 </div>
@@ -62,42 +62,42 @@ export function WaterfallSimulator() {
                   onChange={(e) => setV((s) => ({ ...s, [k]: Number(e.target.value) }))}
                   className="sim-range w-full"
                 />
-                <p className="text-[12px] leading-relaxed text-[#94a3b8]">{c.help}</p>
+                <p className="text-[12px] leading-relaxed text-[#64748b]">{c.help}</p>
               </div>
             );
           })}
         </div>
       </div>
 
-      <div className="rounded-2xl border border-[#1e293b] bg-[#0f172a] p-6 lg:[@media(max-height:860px)]:p-5">
-        <h3 className="flex items-center gap-2 font-data text-[13px] font-semibold uppercase tracking-wider text-[#f8fafc]">
-          <DollarSign className="size-4 text-[#34d399]" /> {simulator.waterfallTitle}
+      <div className="rounded-2xl border border-[#e2e8f0] bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04)] p-6 lg:[@media(max-height:860px)]:p-5">
+        <h3 className="flex items-center gap-2 font-data text-[13px] font-semibold uppercase tracking-wider text-[#0f172a]">
+          <DollarSign className="size-4 text-[#059669]" /> {simulator.waterfallTitle}
         </h3>
         <div className="mt-6 grid gap-4 lg:[@media(max-height:860px)]:mt-4 lg:[@media(max-height:860px)]:gap-3">
           {[
-            { o: simulator.outputs.syndicate, value: savSyndicateShare, color: "#34d399" },
-            { o: simulator.outputs.seller, value: v.passThrough, color: "#22d3ee" },
+            { o: simulator.outputs.syndicate, value: savSyndicateShare, color: "#059669" },
+            { o: simulator.outputs.seller, value: v.passThrough, color: "#0891b2" },
           ].map(({ o, value, color }) => (
             <div
               key={o.label}
-              className="rounded-xl border border-[#1e293b] bg-[#020617] p-4 lg:[@media(max-height:860px)]:p-3"
+              className="rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4 lg:[@media(max-height:860px)]:p-3"
             >
               <div className="mb-2 flex items-center justify-between gap-4 text-[13px]">
-                <span className="text-[#94a3b8]">{o.label}</span>
+                <span className="text-[#64748b]">{o.label}</span>
                 <span className="font-data text-[15px] font-semibold tabular-nums" style={{ color }}>
                   {value}%
                 </span>
               </div>
               <Bar value={value} color={color} />
-              <p className="mt-2 text-[12px] leading-relaxed text-[#94a3b8]">{o.help}</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-[#64748b]">{o.help}</p>
             </div>
           ))}
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-[#1e293b] bg-[#020617] p-4 lg:[@media(max-height:860px)]:p-3">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-[#e2e8f0] bg-[#f8fafc] p-4 lg:[@media(max-height:860px)]:p-3">
             <div>
-              <span className="block font-data text-[12px] text-[#94a3b8]">{simulator.outputs.recourse.label}</span>
-              <span className="text-[14px] font-semibold text-[#f8fafc]">{simulator.outputs.recourse.value}</span>
+              <span className="block font-data text-[12px] text-[#64748b]">{simulator.outputs.recourse.label}</span>
+              <span className="text-[14px] font-semibold text-[#0f172a]">{simulator.outputs.recourse.value}</span>
             </div>
-            <span className="rounded border border-[#334155] bg-[#0f172a] px-3 py-1 font-data text-[12px] text-[#34d399]">
+            <span className="rounded border border-[#a7f3d0] bg-[#ecfdf5] px-3 py-1 font-data text-[12px] text-[#059669]">
               {simulator.outputs.recourse.badge}
             </span>
           </div>
