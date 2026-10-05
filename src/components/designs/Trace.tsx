@@ -78,9 +78,8 @@ function HeroTrace() {
 }
 
 /**
- * The page spine: a vertical line that fills with scroll progress. Every child
- * section carrying data-node lights its node (and settles its content) when it
- * crosses the reading line.
+ * Section motion controller: lights each data-node section as it crosses the reading line,
+ * reveals data-reveal blocks as they enter view, and reveals a whole section on nav jumps.
  */
 function Spine({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -136,59 +135,29 @@ function Spine({ children }: { children: ReactNode }) {
     window.addEventListener("hashchange", onHashChange);
     showSection(window.location.hash);
 
-    // Sit each node on the vertical centre of its section's first heading line.
-    // offsetTop ignores the reveal transform, so the node stays put while content settles.
-    const align = () => {
-      for (const n of nodes) {
-        const dot = n.querySelector<HTMLElement>(".spine-node");
-        const first = n.querySelector<HTMLElement>(".spine-content :is(h2, dt)");
-        if (!dot || !first) continue;
-        const cs = getComputedStyle(first);
-        const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.2;
-        let top = 0;
-        for (let e: HTMLElement | null = first; e && e !== n; e = e.offsetParent as HTMLElement | null) {
-          top += e.offsetTop;
-        }
-        dot.style.top = `${top + lh / 2}px`;
-      }
-    };
     const update = () => {
       const reading = window.innerHeight * 0.62;
-      // Fill starts when the track's top reaches the reading line and completes at the very bottom.
-      const start = el.getBoundingClientRect().top + window.scrollY - reading;
-      const end = document.documentElement.scrollHeight - window.innerHeight;
-      const p = end > start ? Math.min(1, Math.max(0, (window.scrollY - start) / (end - start))) : 1;
-      el.style.setProperty("--p", p.toFixed(4));
       // At the end of the page the last node may never reach the reading line.
       const atEnd = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 8;
       for (const n of nodes) {
         if (atEnd || n.getBoundingClientRect().top < reading) n.setAttribute("data-lit", "");
       }
     };
-    const onResize = () => {
-      align();
-      update();
-    };
     // Six rect reads per scroll event: cheap enough to run unthrottled.
-    align();
     update();
-    document.fonts?.ready.then(align);
     window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", onResize);
+    window.addEventListener("resize", update);
     return () => {
       revealer.disconnect();
       document.removeEventListener("click", onAnchorClick);
       window.removeEventListener("hashchange", onHashChange);
       window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", update);
     };
   }, []);
 
   return (
     <div ref={ref} className="spine relative">
-      <div className="spine-x pointer-events-none absolute inset-y-0 z-10 w-px bg-[#94a3b8]/25" aria-hidden>
-        <div className="spine-fill absolute inset-0 origin-top bg-[#22d3ee]" />
-      </div>
       {children}
     </div>
   );
@@ -201,11 +170,7 @@ function Node({ id, children, className = "" }: { id?: string; children: ReactNo
       data-node=""
       className={`relative py-16 sm:py-20 lg:py-[clamp(2.25rem,5.5vh,4.5rem)] ${className}`}
     >
-      <span
-        className="spine-x spine-node absolute top-[5.5rem] z-20 size-[11px] -translate-x-[calc(50%-0.5px)] -translate-y-1/2 rounded-full border-2 border-[#475569] bg-[#020617] sm:top-[6.5rem] lg:top-[7.5rem]"
-        aria-hidden
-      />
-      <div className="spine-content mx-auto w-full max-w-[1160px] pl-12 pr-5 sm:pl-20 sm:pr-8">{children}</div>
+      <div className={`spine-content ${wrap}`}>{children}</div>
     </section>
   );
 }
@@ -446,8 +411,7 @@ export default function Trace() {
       </main>
 
       <footer className="relative border-t border-[#1e293b] bg-[#020617] py-8 font-data text-[12px] text-[#94a3b8]">
-        <span className="spine-x pointer-events-none absolute inset-y-0 w-px bg-[#22d3ee]" aria-hidden />
-        <div className="mx-auto flex w-full max-w-[1160px] flex-col gap-4 pl-12 pr-5 sm:pl-20 sm:pr-8 md:flex-row md:items-center md:justify-between">
+        <div className={`${wrap} flex flex-col gap-4 md:flex-row md:items-center md:justify-between`}>
           <p>{footer.company}</p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {footer.notes.map((n) => (
