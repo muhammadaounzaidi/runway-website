@@ -12,7 +12,7 @@ export function Workbench() {
         </span>
       </div>
 
-      <div className="wb-body grid gap-4 py-5 font-data">
+      <div className="wb-body @container grid gap-4 py-5 font-data">
         <div className="grid gap-2 rounded-xl border border-[#1e293b] bg-[#020617] p-4">
           <div className="flex flex-wrap justify-between gap-x-3 gap-y-1 text-[12px] text-[#94a3b8]">
             <span>{workbench.metricLabel}</span>
@@ -38,11 +38,13 @@ export function Workbench() {
           <p className="mt-1.5 font-sans text-[13px] leading-relaxed text-[#cbd5e1]">{workbench.verdictBody}</p>
         </div>
 
-        <dl className="grid grid-cols-2 gap-3 pt-1 text-[12px]">
+        <dl className="grid grid-cols-1 gap-3 pt-1 text-[12px] @[22rem]:grid-cols-2">
           {workbench.facts.map((f) => (
-            <div key={f.label} className="rounded-lg border border-[#1e293b] bg-[#020617] p-3">
+            <div key={f.label} className="@container rounded-lg border border-[#1e293b] bg-[#020617] p-3">
               <dt className="uppercase text-[#94a3b8]">{f.label}</dt>
-              <dd className="mt-0.5 text-[14px] font-semibold text-[#f8fafc]">{f.value}</dd>
+              <dd className="mt-0.5 whitespace-nowrap text-[clamp(12px,8.4cqi,14px)] font-semibold text-[#f8fafc]">
+                {f.value}
+              </dd>
             </div>
           ))}
         </dl>
