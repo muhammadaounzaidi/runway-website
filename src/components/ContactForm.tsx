@@ -17,7 +17,7 @@ function validate(f: Fields): Errors {
 
 const label = "block text-[13px] font-medium text-[#94A3B8]";
 const control =
-  "mt-2 w-full rounded-lg border border-[#2A3550] bg-[#0B132B] px-4 py-3 text-[15px] text-[#F8FAFC] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#8A99AF] focus:border-[#00EBDB] focus:shadow-[0_0_0_3px_rgb(0_235_219/0.15)] focus-visible:outline-none aria-[invalid=true]:border-[#FB7185]";
+  "mt-2 w-full rounded-lg border border-[#1e293b] bg-[#020617] px-4 py-3 text-[15px] text-[#ffffff] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#8A99AF] focus:border-[#06b6d4] focus:shadow-[0_0_0_3px_rgb(6_182_212/0.15)] focus-visible:outline-none aria-[invalid=true]:border-[#FB7185]";
 
 export function ContactForm() {
   const uid = useId();
@@ -44,7 +44,7 @@ export function ContactForm() {
     return (
       <p
         role="status"
-        className="rounded-xl border border-[#00EBDB]/30 bg-[#00EBDB]/[0.06] p-6 text-center text-[16px] leading-relaxed text-[#E2E8F0]"
+        className="rounded-xl border border-[#10b981]/30 bg-[#022c22]/30 p-6 text-center text-[16px] leading-relaxed text-[#6ee7b7]"
       >
         {contact.success}
       </p>
@@ -101,7 +101,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={state === "sending"}
-        className="mt-2 rounded-lg bg-[#00EBDB] px-6 py-3.5 text-[15px] font-semibold text-[#0B132B] transition-colors duration-300 hover:bg-[#5FF5EA] disabled:cursor-progress disabled:opacity-70 sm:col-span-2"
+        className="mt-2 rounded-lg bg-[#06b6d4] px-6 py-3.5 text-[15px] font-semibold text-[#020617] transition-colors duration-300 hover:bg-[#22d3ee] disabled:cursor-progress disabled:opacity-70 sm:col-span-2"
       >
         {state === "sending" ? "Sending inquiry…" : contact.submit}
       </button>

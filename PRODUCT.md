@@ -26,7 +26,7 @@ Read during investment diligence, BD review and asset-sale conversations. Vocabu
 
 ## Capabilities and Constraints
 
-- Sections (from "Website code_updated"): hero with SAB Workbench, macro thesis, 4-stage operating model, SAV waterfall simulator, post-SAV execution playbook, governance, contact.
+- Sections (exactly as "Website code_updated"): hero with the 14-Day SAB Workbench Preview card, The Macro Disconnect, The Complete Operating Model (4 stages), Capital Architecture (SAV waterfall simulator), Operational Playbook (post-SAV milestones), Institutional Rigor (governance), contact.
 - Contact form: Full Name, Professional Email, Organization / Entity, Strategic Interest (4 options). No backend yet.
 - Marketing site is a separate repo (`runway-website`), decoupled from the core platform; deploys to Vercel/Cloudflare.
 - Stack: Next.js (App Router), Tailwind CSS v4, TypeScript, Lucide icons.
@@ -35,8 +35,8 @@ Read during investment diligence, BD review and asset-sale conversations. Vocabu
 
 - Name: Runway Clinical Intelligence Inc.; mark "RUNWAY // CI"; Delaware C-Corporation.
 - Client chose the **Trace** design direction (Sep 24, 2026).
-- Palette and type are fixed by the Engineering Specification §3: deep navy / midnight slate backgrounds (#0B132B, #0F172A), slate surfaces (#1E293B, #162032), clinical off-white text (#F8FAFC, #E2E8F0), electric teal / biotech cyan accents (#00EBDB, #38BDF8), indigo / coral callouts (#818CF8, #FB7185); Inter for headings and body, JetBrains Mono for metrics, formulas and code.
-- Copy sources: docs/client-docs/new-doc "Website code_updated" (primary) and "Engr Spec-Website_update_dev".
+- Source of truth for copy, sections and palette: docs/client-docs/new-doc "Website code_updated" (Tailwind slate-950/900/800 with cyan-400/500 accents, amber and emerald icon accents, cyan→blue gradient on the headline accent). The Engineering Specification is secondary reference only.
+- Fonts: Inter for headings and body, JetBrains Mono for labels and data.
 
 ## Evidence on Hand
 

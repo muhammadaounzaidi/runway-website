@@ -1,6 +1,4 @@
-// Copy follows docs/client-docs/new-doc/"Engr Spec-Website_update_dev" (§4 architecture, §5 component
-// specifications). Where the spec defines no copy (contact form, footer), text comes from
-// "Website code_updated". Spec section references are noted inline.
+// Copy follows docs/client-docs/new-doc/"Website code_updated" exactly (citation markers removed).
 
 export const brand = {
   name: "Runway",
@@ -8,147 +6,211 @@ export const brand = {
   mark: "RUNWAY // CI",
 };
 
-// One link per spec section (§4).
 export const nav = [
-  { href: "#thesis", label: "Macro Thesis" },
-  { href: "#technology", label: "Technology" },
-  { href: "#sav", label: "SAV Architecture" },
-  { href: "#security", label: "Security & Compliance" },
+  { href: "#engine", label: "The Engine" },
+  { href: "#triage", label: "14-Day Triage" },
+  { href: "#sav-model", label: "The SAV Model" },
+  { href: "#post-sav", label: "Post-SAV Execution" },
+  { href: "#governance", label: "Governance" },
 ];
 
-export const primaryAction = { href: "#contact", label: "Submit Asset Dossier" };
+export const primaryAction = { href: "#contact", label: "Inquire on Pipeline" };
 
-// §5 Section 1
+// Section 1: Hero
 export const hero = {
-  headline: "Programmatic Triage for Distressed Clinical Therapeutics",
-  sub: "Runway combines automated pharmacokinetic reconstruction with institutional underwriting to identify salvageable biopharma assets and feed dedicated Single-Asset Vehicles.",
-  primaryCta: { href: "#technology", label: "Explore Platform Pipeline" },
-  secondaryCta: { href: "#contact", label: "Submit Asset Dossier" },
+  badge: "Institutional Clinical Intelligence & Asset Acquisition",
+  headlineLead: "Programmatic Triage & Acquisition for",
+  headlineAccent: "Distressed Clinical Therapeutics",
+  sub: "Runway correlates real-time clinical trial velocity with SEC financial burn to identify mispriced, stalled biopharma assets. Through automated PK/PD mathematical reconstruction, we confirm viable drug biology, acquire programs into liability-isolated Single-Asset Vehicles (SAVs), and execute capital-efficient clinical turnarounds.",
+  primaryCta: { href: "#sav-model", label: "Explore The SAV Model" },
+  secondaryCta: { href: "#triage", label: "Review 14-Day Diligence" },
+  credentials: [
+    { title: "21 CFR Part 11", detail: "Audit Trail Integrity" },
+    { title: "Delaware C-Corp", detail: "Ring-Fenced SAVs" },
+    { title: "Continuous SEC", detail: "CIK Burn Surveillance" },
+  ],
 };
 
-// §4 Section 1 "Interactive PK/PD Workbench Re-plot & Distress Index"; §5 State A / State B.
-// Curves and index values are illustrative.
+// Hero visual card: Regimen vs Biological Failure
 export const workbench = {
-  title: "SAB Workbench · PK/PD Re-plot",
-  states: {
-    regimen: {
-      tab: "REGIMEN_FAILURE",
-      label: "State A",
-      badge: "Salvageable via altered dosing interval (Q2W → QW)",
-      distressIndex: 0.78,
-    },
-    biological: {
-      tab: "BIOLOGICAL_FAILURE",
-      label: "State B",
-      badge: "Target saturated with zero efficacy; triage verdict: Deprioritize",
-      distressIndex: 0.91,
-    },
-  },
+  title: "14-Day SAB Workbench Preview",
+  status: "High Salvage Potential",
+  metricLabel: "Pharmacometric Target Metric",
+  metricValue: "Steady-State Occupancy >= 85%",
+  occupancy: 88,
+  exposureLabel: "Observed Trough Exposure (Ctrough)",
+  exposureValue: "Target Saturation Maintained",
+  verdictLabel: "Algorithmic Triage Verdict",
+  verdict: "REGIMEN_FAILURE (Salvageable)",
+  verdictBody:
+    "Primary endpoint missed due to sub-optimal dosing intervals rather than target invalidation. Candidate for SAV acquisition and revised clinical schedule.",
+  facts: [
+    { label: "Corporate Recourse", value: "$0 Parent Liability" },
+    { label: "Tranche Financing", value: "Milestone-Gated" },
+  ],
 };
 
-// §4 Section 2 + §5 Section 2
+// Section 2: The macro problem & value arbitrage
 export const thesis = {
-  heading: "The Macro Thesis & Industry Arbitrage",
-  subheading: "The Failure Disconnect: Regimen Under-Dosing vs. Biological Failure",
-  argument:
-    "Millions of dollars in capital are abandoned each year because clinical trials fail on operational, scheduling, or dosing parameters—not target biology.",
-  metrics: [
+  label: "The Macro Disconnect",
+  heading: "Clinical Programs are Frequently Abandoned for Operational, Not Biological, Reasons",
+  items: [
     {
-      figure: "~40%",
-      text: "Proportion of Phase 1/2 trial halts driven by regimen miscalculation or sponsor capital depletion rather than unviable biology.",
-    },
-    { figure: "14 Days", text: "Turnaround window from raw dossier ingestion to formal SAB algorithmic verdict." },
-    {
-      figure: "$0 Parent Liability",
-      text: "Complete quarantine of clinical trial operational liabilities within isolated project SPVs.",
-    },
-  ],
-};
-
-// §4 Section 3 + §5 Section 3 (4-step interactive feature sequence)
-export const technology = {
-  heading: "The Technology Pipeline",
-  intro: "A 4-step sequence detailing Runway’s computational edge.",
-  steps: [
-    {
-      key: "ingestion",
-      step: "Step 1",
-      title: "Automated Ingestion",
-      architecture: "SEC EDGAR & CSR Automated Table Extraction",
-      body: "Parsing Non-Compartmental Analysis (NCA) tables, mean concentration coordinates, and clinical endpoints from unstructured PDFs, CSRs, and SEC 8-K filings.",
+      key: "capital",
+      title: "Capital Exhaustion",
+      body: "Biotech downturns and strategic reprioritizations force sponsors to mothball viable Phase 1/2 assets as balance sheets deplete ahead of pivotal trial readouts.",
     },
     {
-      key: "pkpd",
-      step: "Step 2",
-      title: "PK/PD Mathematical Engine",
-      architecture: "1-Compartment PK Reconstruction & Hill Equation Solver",
-      body: "Solving 1-compartment differential equations and applying the sigmoidal Hill equation to quantify target saturation.",
+      key: "regimen",
+      title: "Regimen vs. Biology Failure",
+      body: "A notable proportion of early trial failures result from faulty dosing intervals, narrow exposure windows, or inadequate PK/PD modeling rather than defective target biology.",
     },
     {
-      key: "audit",
-      step: "Step 3",
-      title: "Regulatory Audit Engine",
-      architecture: "21 CFR Part 11 Electronic Signature & Immutable Audit Logs",
-      body: "Generating 21 CFR Part 11 compliant audit dossiers, complete with RFC 6238 TOTP electronic signature verification.",
-    },
-    {
-      key: "classifier",
-      step: "Step 4",
-      title: "Mechanistic Classifier",
-      architecture: "Algorithmic Classification (Regimen Failure vs. Target Invalidation)",
-      body: "Categorizing assets into actionable tranches (REGIMEN_FAILURE, BIOLOGICAL_FAILURE, NARROW_WINDOW).",
+      key: "arbitrage",
+      title: "Valuation Arbitrage",
+      body: "Runway acquires historical R&D at conservative initial entry valuations, structuring payouts via contingent clinical milestones and protecting syndicate downside.",
     },
   ],
 };
 
-// §4 Section 4 + §5 Section 4
-export const sav = {
-  heading: "Single-Asset Vehicle (SAV) Architecture",
-  intro: "The commercialization loop, from the parent engine to isolated asset vehicles.",
-  pillars: [
-    "Hub-and-Spoke Corporate Separation (Parent vs. Asset SPVs)",
-    "Back-Loaded Milestone Earn-Out Framework",
-    "Syndicate Co-Investment & Out-Licensing Realization",
+// Section 3: The 4-stage lifecycle
+export const operatingModel = {
+  label: "The Complete Operating Model",
+  heading: "From Algorithmic Triage to Acquisition and Commercial Exit",
+  stages: [
+    {
+      id: undefined,
+      stage: "STAGE 01",
+      title: "Continuous Surveillance",
+      body: "Ingests global trial registries and SEC filings (10-K, 10-Q, 8-K) to flag trial velocity deceleration and corporate burn rate divergences before public announcements.",
+      points: ["Registry Velocity Tracking", "Cash-Zero Date Modeling", "Corporate Debt Stack Audit"],
+    },
+    {
+      id: "triage",
+      stage: "STAGE 02",
+      title: "14-Day SAB Diligence",
+      body: "Evaluates raw CSR tables through our strict pharmacometric engine. Confirms target saturation and determines whether failure was biological or schedule-driven.",
+      points: ["PK/PD Mathematical Model", "CMC Stability Review", "FTO Exclusivity Audit"],
+    },
+    {
+      id: undefined,
+      stage: "STAGE 03",
+      title: "The SAV Acquisition",
+      body: "Assets are acquired into isolated Delaware Single-Asset Vehicles (SAVs). Acquired via 90-day option windows and structured via 50% Cash / 50% SAV Equity to align sellers.",
+      points: ["Complete Parent Liability Ring-Fence", "Milestone-Gated Earn-Outs", "Anti-Stacking Covenants"],
+    },
+    {
+      id: undefined,
+      stage: "STAGE 04",
+      title: "Execution & Out-Licensing",
+      body: "The SAV conducts targeted formulation work or Phase 1b/2 bridging studies. Once de-risked, the asset is out-licensed or acquired by commercial pharmaceutical partners.",
+      points: ["Phase 1b/2 Proof-of-Concept", "Global Pharma Out-Licensing", "80%-90% Net Syndicate Payout"],
+    },
   ],
-  parent: {
-    title: "The Parent Engine",
-    body: "Runway maintains the technology core, ingestion pipeline, and proprietary deal sourcing.",
+};
+
+// Section 4: Interactive SAV waterfall & capital model
+export const simulator = {
+  label: "Capital Architecture",
+  heading: "The Single-Asset Vehicle (SAV) Waterfall Simulator",
+  intro:
+    "Model how Runway aligns capital, isolates corporate operational liability, and distributes downstream out-licensing proceeds.",
+  parametersTitle: "Model Parameters",
+  waterfallTitle: "Capital & Proceeds Waterfall",
+  controls: {
+    cash: {
+      label: "Upfront Consideration Mix",
+      help: "Conserves initial vehicle liquidity by issuing preferred equity in the SAV to the original sponsor.",
+      min: 20,
+      max: 80,
+      step: 5,
+      initial: 50,
+    },
+    passThrough: {
+      label: "Seller Out-Licensing Pass-Through",
+      help: "Defines the seller’s agreed cut of downstream licensing proceeds, superseding prior milestone claims.",
+      min: 10,
+      max: 25,
+      step: 1,
+      initial: 15,
+    },
+    clinical: {
+      label: "Direct Clinical Execution Proportion",
+      help: "Target share of syndicate capital dedicated directly to bridging trial and CMC operations.",
+      min: 60,
+      max: 90,
+      step: 5,
+      initial: 80,
+    },
   },
-  entity: {
-    title: "The Project Entity (SAV)",
-    body: "Individual Delaware entities formed to acquire or in-license specific compounds, funded via milestone-gated syndicate tranches.",
-  },
-  riskTitle: "Back-Loaded Risk",
-  ladder: [
-    { stage: "Upfront option window", detail: "$50k–$150k" },
-    { stage: "Closing", detail: "$500k–$1.5M · 50% Cash / 50% SAV Equity" },
-    { stage: "Contingent clinical / regulatory milestones", detail: "Milestone-gated" },
-    { stage: "Out-licensing pass-through", detail: "10–20% seller share · 80–90% SAV investor equity return" },
-  ],
-};
-
-// §4 Section 5 + §5 Section 5
-export const security = {
-  heading: "Trust, Security & Compliance",
-  badges: [
-    { key: "cfr", title: "21 CFR Part 11", detail: "Electronic Records & Signatures" },
-    { key: "hipaa", title: "HIPAA / HITECH", detail: "Security Standards" },
-    { key: "soc2", title: "SOC 2 Type II", detail: "Alignment" },
-  ],
-  enclaveTitle: "Enclave Security",
-  enclave: [
-    { key: "vpc", title: "AWS 3-tier VPC enclave" },
-    { key: "sts", title: "Short-lived STS credential management" },
-    { key: "dataroom", title: "Encrypted data room isolation" },
-  ],
-  leadership: {
-    title: "Executive Leadership & Scientific Advisory Board",
-    // Profiles not yet supplied by Runway; do not invent names.
-    pending: "Leadership and Scientific Advisory Board profiles to be published.",
+  outputs: {
+    syndicate: {
+      label: "SAV Syndicate & Platform Distribution",
+      help: "Net cash returned to outside investors, co-syndicates, and the platform upon execution of a major out-license or acquisition.",
+    },
+    seller: {
+      label: "Original Seller Sublicense Allocation",
+      help: "Contractual pass-through percentage extinguishing all unaccrued historical milestone claims.",
+    },
+    recourse: { label: "PARENT COMPANY RECOURSE", value: "Quarantined to Asset Vehicle", badge: "$0 Parent Liability" },
   },
 };
 
-// Contact: not defined in the spec; target of "Submit Asset Dossier". Copy from "Website code_updated".
+// Section 5: Post-SAV clinical execution playbook
+export const playbook = {
+  label: "Operational Playbook",
+  heading: "Post-Acquisition De-Risking & Clinical Execution",
+  milestones: [
+    {
+      tag: "MILESTONE 01",
+      title: "Regulatory Protocol Realignment",
+      body: "Filing amended IND protocols and safety updates with the FDA/EMA, establishing optimized dosing schedules (e.g., Q2W to weekly QW).",
+    },
+    {
+      tag: "MILESTONE 02",
+      title: "Targeted CMC & Stability",
+      body: "Executing drug substance (DS) and drug product (DP) inventory audits, qualification batches, and real-time release assays with partner CDMOs.",
+    },
+    {
+      tag: "MILESTONE 03",
+      title: "Phase 1b/2 Proof-of-Concept",
+      body: "Running lean clinical bridging cohorts to demonstrate therapeutic coverage and clear primary efficacy biomarker endpoints.",
+    },
+    {
+      tag: "MILESTONE 04",
+      title: "Global Pharma Out-Licensing",
+      body: "Partnering de-risked assets with commercial-stage biopharma organizations, generating upfront fees, milestones, and running net sales royalties.",
+    },
+  ],
+};
+
+// Section 6: Institutional governance & compliance
+export const governance = {
+  label: "Institutional Rigor",
+  heading: "Governed for High-Stakes Clinical Diligence",
+  intro:
+    "Every triage recommendation and diligence decision generated on the Runway platform operates under strict regulatory controls, formal electronic signature verifications, and complete legal separation between software and asset operations.",
+  items: [
+    { key: "cfr", title: "21 CFR Part 11", body: "Cryptographic audit trails and formal review sign-off ceremonies." },
+    {
+      key: "ringfence",
+      title: "Delaware SAV Ring-Fence",
+      body: "Clinical risks and operational vendor payables isolated by entity.",
+    },
+    {
+      key: "gcp",
+      title: "GCP / ICH Compliance",
+      body: "Institutional data handling protocols for clinical trial evaluation.",
+    },
+    {
+      key: "ip",
+      title: "Anti-Stacking IP Covenants",
+      body: "Standardized contractual protection against third-party royalty claims.",
+    },
+  ],
+};
+
+// Section 7: Conversion & contact form
 export const contact = {
   heading: "Partner with Runway Clinical Intelligence",
   sub: "Whether evaluating co-investment into active Single-Asset Vehicles, exploring strategic advisory alignment, or submitting a shelved biopharma asset for triage, reach out directly to our executive team.",
@@ -159,8 +221,8 @@ export const contact = {
     interest: "Strategic Interest",
   },
   interests: [
-    "Submit a Stalled / Distressed Asset for Triage",
     "Co-Invest in an Active SAV Vehicle",
+    "Submit a Stalled / Distressed Asset for Triage",
     "Incubator / Venture Studio Strategic Partnership",
     "Pharma Licensing & BD Acquisition",
   ],
@@ -170,5 +232,6 @@ export const contact = {
 
 export const footer = {
   company: "Runway Clinical Intelligence Inc. | Delaware C-Corporation",
+  notes: ["21 CFR Part 11 Compliant Architecture", "Liability-Isolated SAV Governance"],
   copyright: "© 2026 All Rights Reserved",
 };
