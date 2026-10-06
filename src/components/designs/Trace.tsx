@@ -14,7 +14,9 @@ import {
   TrendingDown,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import {
+  brand,
   complianceBadges,
   contact,
   footer,
@@ -215,11 +217,8 @@ export default function Trace() {
     <div className="dir-trace min-h-screen">
       <header className="sticky top-0 z-40 border-b border-[#1e293b] bg-[#020617]/85 backdrop-blur-md">
         <div className={`${wrap} flex h-16 items-center gap-6`}>
-          <a href="#top" className="flex shrink-0 items-center gap-3 whitespace-nowrap">
-            <Activity className="size-6 text-[#22d3ee]" />
-            <span className="font-data text-[17px] font-bold tracking-tight text-white">
-              RUNWAY <span className="text-[#22d3ee]">{"//"}</span> CI
-            </span>
+          <a href="#top" className="flex shrink-0 items-center" aria-label={brand.legal}>
+            <Image src="/runway-logo.png" alt={brand.legal} width={778} height={144} priority className="h-8 w-auto" />
           </a>
           {/* One line, evenly spaced, centred between logo and action (wide screens) */}
           <nav

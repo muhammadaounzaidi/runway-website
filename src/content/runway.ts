@@ -22,7 +22,7 @@ export const hero = {
   badge: "Institutional Clinical Intelligence & Asset Acquisition",
   headlineLead: "Programmatic Triage & Acquisition for",
   headlineAccent: "Distressed Clinical Therapeutics",
-  sub: "Runway correlates real-time clinical trial velocity with SEC financial burn to identify mispriced, stalled biopharma assets. Through automated PK/PD mathematical reconstruction, we confirm viable drug biology, acquire programs into liability-isolated Single-Asset Vehicles (SAVs), and execute capital-efficient clinical turnarounds.",
+  sub: "Runway Clinical Intelligence correlates real-time clinical trial velocity with SEC financial burn to identify mispriced, stalled biopharma assets. Through automated PK/PD mathematical reconstruction, we confirm viable drug biology, acquire programs into liability-isolated Single-Asset Vehicles (SAVs), and execute capital-efficient clinical turnarounds.",
   primaryCta: { href: "#sav-model", label: "Explore The SAV Model" },
   secondaryCta: { href: "#triage", label: "Review 14-Day Diligence" },
   credentials: [

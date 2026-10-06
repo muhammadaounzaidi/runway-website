@@ -8,7 +8,7 @@ const jetbrains = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["lati
 export const metadata: Metadata = {
   title: "Runway Clinical Intelligence | Programmatic Triage & Acquisition for Distressed Clinical Therapeutics",
   description:
-    "Runway correlates real-time clinical trial velocity with SEC financial burn to identify mispriced, stalled biopharma assets and acquire them into liability-isolated Single-Asset Vehicles.",
+    "Runway Clinical Intelligence correlates real-time clinical trial velocity with SEC financial burn to identify mispriced, stalled biopharma assets and acquire them into liability-isolated Single-Asset Vehicles.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
