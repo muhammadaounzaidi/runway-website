@@ -12,7 +12,6 @@ import {
   Scale,
   ShieldCheck,
   TrendingDown,
-  UserRound,
   X,
 } from "lucide-react";
 import {
@@ -21,7 +20,6 @@ import {
   footer,
   governance,
   hero,
-  leadership,
   nav,
   operatingModel,
   playbook,
@@ -502,55 +500,6 @@ export default function Trace() {
                 );
               })}
             </ul>
-          </Node>
-
-          {/* Leadership (client request): Executive Leadership & Scientific Advisory Board */}
-          <Node id="leadership" className="bg-[#e7ecf3]">
-            <p className={label}>{leadership.label}</p>
-            <h2 className={h2}>{leadership.heading}</h2>
-            <div className={`${afterHead} grid gap-10 lg:grid-cols-2 lg:gap-12`}>
-              {leadership.groups.map((g) => (
-                <div key={g.key}>
-                  <h3 className="font-data text-[13px] font-semibold uppercase tracking-wider text-[#334155]">
-                    {g.title}
-                  </h3>
-                  <ul
-                    data-reveal="stagger"
-                    className="mt-5 grid gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-1 xl:grid-cols-3"
-                  >
-                    {g.people.map((person, i) =>
-                      person.name ? (
-                        <li
-                          key={i}
-                          className="flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-4 shadow-[0_1px_2px_rgb(15_23_42/0.04)] sm:block sm:p-5"
-                        >
-                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#0f172a] font-data text-[14px] font-bold text-[#22d3ee]">
-                            {person.initials}
-                          </span>
-                          <div>
-                            <p className="text-[15px] font-bold leading-snug text-[#0f172a] sm:mt-4">{person.name}</p>
-                            <p className="mt-1 text-[13px] text-[#0e7490]">{person.role}</p>
-                          </div>
-                        </li>
-                      ) : (
-                        <li
-                          key={i}
-                          className="flex items-center gap-4 rounded-xl border border-dashed border-[#cbd5e1] bg-white/60 p-4 sm:block sm:p-5"
-                        >
-                          <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#e2e8f0] text-[#94a3b8]">
-                            <UserRound className="size-6" strokeWidth={1.6} />
-                          </span>
-                          <div>
-                            <p className="text-[15px] font-semibold text-[#64748b] sm:mt-4">{person.role}</p>
-                            <p className="mt-1 text-[13px] text-[#94a3b8]">{leadership.pending}</p>
-                          </div>
-                        </li>
-                      ),
-                    )}
-                  </ul>
-                </div>
-              ))}
-            </div>
           </Node>
 
           {/* Section 7: Conversion & contact form */}

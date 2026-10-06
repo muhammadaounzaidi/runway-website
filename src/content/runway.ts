@@ -12,7 +12,7 @@ export const nav = [
   { href: "#sav-model", label: "The SAV Model" },
   { href: "#post-sav", label: "Post-SAV Execution" },
   { href: "#governance", label: "Governance" },
-  { href: "#leadership", label: "Leadership" },
+  // { href: "#leadership", label: "Leadership" }, — shelved until leadership profiles are provided
 ];
 
 export const primaryAction = { href: "#contact", label: "Inquire on Pipeline" };
@@ -218,7 +218,8 @@ export const complianceBadges = [
   { key: "soc2", title: "SOC 2 Type II", detail: "Alignment" },
 ];
 
-// Leadership section (client request, Oct 2026; heading from the Engineering Specification §4).
+// Leadership section: SHELVED (Oct 6, 2026) until the client provides profiles; not rendered.
+// Heading from the Engineering Specification §4.
 // Only the founder's details are known (from her email signature); other seats await client profiles.
 export const leadership = {
   label: "Leadership",
