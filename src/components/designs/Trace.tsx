@@ -303,14 +303,11 @@ export default function Trace() {
                   aria-label={`${hero.headlineLead} ${hero.headlineAccent}`}
                   className="mt-0 text-balance text-[clamp(2rem,min(9vw,5.2svh),2.6rem)] sm:mt-6 sm:text-[clamp(2.1rem,min(4.6vw,6.8vh),3.75rem)] font-extrabold leading-[1.08] tracking-[-0.03em] text-white"
                 >
-                  {[
-                    ...leadWords.map((w) => ({ w, accent: false })),
-                    ...accentWords.map((w) => ({ w, accent: true })),
-                  ].map(({ w, accent }, i, all) => (
+                  {[...leadWords, ...accentWords].map((w, i, all) => (
                     <Fragment key={i}>
                       <span
                         aria-hidden
-                        className={`hero-word ${accent ? "bg-gradient-to-r from-[#22d3ee] to-[#3b82f6] bg-clip-text text-transparent" : ""}`}
+                        className="hero-word"
                         style={{ "--i": i } as CSSProperties}
                       >
                         {w}
