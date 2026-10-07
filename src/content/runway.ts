@@ -266,6 +266,8 @@ export const contact = {
   submit: "Initiate Strategic Discussion",
   success: "Inquiry received. The Runway executive team will be in touch shortly.",
   failure: "We couldn't send your inquiry. Please try again in a moment.",
+  throttled: (wait: string | null) =>
+    `You've reached the inquiry limit for now. Please try again ${wait ?? "later"}.`,
 };
 
 export const footer = {

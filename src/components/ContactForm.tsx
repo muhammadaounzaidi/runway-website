@@ -24,6 +24,24 @@ const apiFields: Record<string, keyof Fields> = {
   strategic_interest: "interest",
 };
 
+// Seconds until the throttle lifts: Retry-After header if exposed, else DRF's "Expected available in N seconds." detail.
+async function retryAfterSeconds(res: Response): Promise<number | null> {
+  const header = Number(res.headers.get("Retry-After"));
+  if (header > 0) return header;
+  const body: { detail?: string } = await res.json().catch(() => ({}));
+  const match = body.detail?.match(/(\d+)\s*seconds?/);
+  return match ? Number(match[1]) : null;
+}
+
+function humanizeWait(seconds: number | null): string | null {
+  if (!seconds) return null;
+  if (seconds < 60) return "in a minute";
+  const minutes = Math.ceil(seconds / 60);
+  if (minutes < 60) return `in ${minutes} minute${minutes === 1 ? "" : "s"}`;
+  const hours = Math.round(minutes / 60);
+  return `in about ${hours} hour${hours === 1 ? "" : "s"}`;
+}
+
 const label = "block text-[13px] font-medium text-[#94A3B8]";
 const control =
   "mt-2 w-full rounded-lg border border-[#1e293b] bg-[#020617] px-4 py-3 text-[15px] text-[#ffffff] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#8A99AF] focus:border-[#06b6d4] focus:shadow-[0_0_0_3px_rgb(6_182_212/0.15)] focus-visible:outline-none aria-[invalid=true]:border-[#FB7185]";
@@ -61,6 +79,11 @@ export function ContactForm() {
       });
       if (res.ok) {
         setState("sent");
+        return;
+      }
+      if (res.status === 429) {
+        setFormError(contact.throttled(humanizeWait(await retryAfterSeconds(res))));
+        setState("idle");
         return;
       }
       if (res.status === 400) {
