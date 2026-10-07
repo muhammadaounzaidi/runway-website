@@ -265,6 +265,7 @@ export const contact = {
   ],
   submit: "Initiate Strategic Discussion",
   success: "Inquiry received. The Runway executive team will be in touch shortly.",
+  failure: "We couldn't send your inquiry. Please try again in a moment.",
 };
 
 export const footer = {

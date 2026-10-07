@@ -15,6 +15,15 @@ function validate(f: Fields): Errors {
   return e;
 }
 
+const ENDPOINT = `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ""}/api/v1/communications/partner-inquiry/`;
+
+const apiFields: Record<string, keyof Fields> = {
+  full_name: "name",
+  email: "email",
+  organization: "org",
+  strategic_interest: "interest",
+};
+
 const label = "block text-[13px] font-medium text-[#94A3B8]";
 const control =
   "mt-2 w-full rounded-lg border border-[#1e293b] bg-[#020617] px-4 py-3 text-[15px] text-[#ffffff] outline-none transition-[border-color,box-shadow] duration-300 placeholder:text-[#8A99AF] focus:border-[#06b6d4] focus:shadow-[0_0_0_3px_rgb(6_182_212/0.15)] focus-visible:outline-none aria-[invalid=true]:border-[#FB7185]";
@@ -24,20 +33,54 @@ export function ContactForm() {
   const [fields, setFields] = useState<Fields>({ name: "", email: "", org: "", interest: contact.interests[0] });
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<"idle" | "sending" | "sent">("idle");
+  const [formError, setFormError] = useState<string | null>(null);
 
   const set = (k: keyof Fields) => (v: string) => {
     setFields((f) => ({ ...f, [k]: v }));
     if (errors[k]) setErrors((e) => ({ ...e, [k]: undefined }));
   };
 
-  const onSubmit = (ev: FormEvent) => {
+  const onSubmit = async (ev: FormEvent) => {
     ev.preventDefault();
     const e = validate(fields);
     setErrors(e);
+    setFormError(null);
     if (Object.keys(e).length) return;
     setState("sending");
-    // No backend yet.
-    setTimeout(() => setState("sent"), 700);
+
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fields.name.trim(),
+          email: fields.email.trim(),
+          organization: fields.org.trim(),
+          strategic_interest: fields.interest,
+        }),
+      });
+      if (res.ok) {
+        setState("sent");
+        return;
+      }
+      if (res.status === 400) {
+        const body: Record<string, string[] | string> = await res.json().catch(() => ({}));
+        const fieldErrors: Errors = {};
+        for (const [key, msgs] of Object.entries(body)) {
+          const k = apiFields[key];
+          if (k) fieldErrors[k] = Array.isArray(msgs) ? msgs[0] : msgs;
+        }
+        if (Object.keys(fieldErrors).length) {
+          setErrors(fieldErrors);
+          setState("idle");
+          return;
+        }
+      }
+      throw new Error(`Inquiry failed: ${res.status}`);
+    } catch {
+      setFormError(contact.failure);
+      setState("idle");
+    }
   };
 
   if (state === "sent") {
@@ -91,12 +134,19 @@ export function ContactForm() {
           id={`${uid}-interest`}
           value={fields.interest}
           onChange={(e) => set("interest")(e.target.value)}
+          aria-invalid={!!errors.interest}
+          aria-describedby={errors.interest ? `${uid}-interest-err` : undefined}
           className={control}
         >
           {contact.interests.map((o) => (
             <option key={o}>{o}</option>
           ))}
         </select>
+        {errors.interest && (
+          <p id={`${uid}-interest-err`} className="mt-2 text-[13px] text-[#FB7185]">
+            {errors.interest}
+          </p>
+        )}
       </div>
       <button
         type="submit"
@@ -105,6 +155,11 @@ export function ContactForm() {
       >
         {state === "sending" ? "Sending inquiry…" : contact.submit}
       </button>
+      {formError && (
+        <p role="alert" className="text-[13px] text-[#FB7185] sm:col-span-2">
+          {formError}
+        </p>
+      )}
     </form>
   );
 }
