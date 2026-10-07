@@ -15,7 +15,7 @@ function validate(f: Fields): Errors {
   return e;
 }
 
-const ENDPOINT = `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ""}/api/v1/communications/partner-inquiry/`;
+const ENDPOINT = `${process.env.API_BASE_URL ?? ""}/api/v1/communications/partner-inquiry/`;
 
 const apiFields: Record<string, keyof Fields> = {
   full_name: "name",
